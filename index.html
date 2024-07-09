@@ -62,10 +62,33 @@
             .then(result => alert(JSON.parse(result).body))
             .catch(error => console.log('error', error));
         }
+
+        // callAPI function that takes the base and exponent numbers as parameters
+        var generalAPI = (primary,secondary,tertiary,quaternary)=>{
+            // instantiate a headers object
+            var myHeaders = new Headers();
+            // add content type header to object
+            myHeaders.append("Content-Type", "application/json");
+            // using built in JSON utility package turn object to string and store in a variable
+            var raw = JSON.stringify({"primary":primary,"secondary":secondary,"tertiary":tertiary,"quaternary":quaternary});
+            // create a JSON object with parameters for API call and store in a variable
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+            // make API call with parameters and use promises to get response
+            fetch("https://c6djl20pr1.execute-api.eu-west-2.amazonaws.com/dev", requestOptions)
+            .then(response => response.text())
+            .then(result => alert(JSON.parse(result).body))
+            .catch(error => console.log('error', error));
+        }
     </script>
 </head>
 <body>
     <h1>TO THE POWER OF MATH!</h1>
+    <h2>Base and Exponent!</h2>
 	<form>
         <label>Base number:</label>
         <input type="text" id="base">
@@ -73,6 +96,25 @@
         <input type="text" id="exponent">
         <!-- set button onClick method to call function we defined passing input values as parameters -->
         <button type="button" onclick="callAPI(document.getElementById('base').value,document.getElementById('exponent').value)">CALCULATE</button>
+    </form>
+    <h2>TO THE POWER OF MATH!</h2>
+    <form>
+        <label>Unit Details</label>
+        <label>Serial:</label>
+        <input type="text" id="Serial">
+        <label>Battery:</label>
+        <input type="text" id="Battery">
+        <label>Pass/Fail:</label>
+        <input type="checkbox" id="FailState">
+        <label>Fail Reason:</label>
+        <input type="text" id="FailReason">
+        <!-- set button onClick method to call function we defined passing input values as parameters -->
+        <button type="button" onclick="generalAPI(
+            document.getElementById('Serial').value,
+            document.getElementById('Battery').value,
+            document.getElementById('FailState').value,
+            document.getElementById('FailReason').value
+            )">Send!</button>
     </form>
 </body>
 </html>
