@@ -98,9 +98,14 @@
             });
             var json = JSON.stringify(object);
             alert(json);
-
+            
             raw = JSON.stringify(Object.fromEntries(formData));
-
+            
+            // instantiate a headers object
+            var myHeaders = new Headers();
+            // add content type header to object
+            myHeaders.append("Content-Type", "application/json"); 
+            
             var requestOptions = {
                 method: 'POST',
                 headers: myHeaders,
