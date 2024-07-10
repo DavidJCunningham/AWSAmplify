@@ -95,7 +95,7 @@
             let object = {};
             formData.forEach(function(value, key){
                 object[key] = value;
-                document.write("Value: "+value+", key:"+key);
+                Console.Log("Value: "+value+", key:"+key);
             });
             var json = JSON.stringify(object);
             alert(json);
