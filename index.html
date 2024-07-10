@@ -93,6 +93,8 @@
         var testAPI = (TestForm)=>{
             let formData = new FormData(TestForm);
             let object = {};
+            console.log("Gaming");
+            console.log(TestForm);
             formData.forEach(function(value, key){
                 object[key] = value;
                 console.log("Value: "+value+", key:"+key);
