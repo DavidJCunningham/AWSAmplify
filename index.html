@@ -95,10 +95,11 @@
             let object = {};
             formData.forEach(function(value, key){
                 object[key] = value;
+                print("Value: "+value+", key:"+key);
             });
             var json = JSON.stringify(object);
             alert(json);
-            
+
             raw = JSON.stringify(Object.fromEntries(formData));
             
             // instantiate a headers object
@@ -151,7 +152,7 @@
             document.getElementById('FailState').value,
             document.getElementById('FailReason').value
             )">Send!</button> -->
-        <button type="button" onclick="testAPI(this.form)">Send!</button>
+        <button type="button" onclick="testAPI(TestForm)">Send!</button>
     </form>
 </body>
 </html>
