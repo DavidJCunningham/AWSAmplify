@@ -90,8 +90,8 @@
             .then(result => alert(JSON.parse(result).body))
             .catch(error => console.log('error', error));
         }
-        var testAPI = (formID)=>{
-            var form = document.getElementById(formID);
+        var testAPI = (form)=>{
+            //var form = document.getElementById(formID);
             let object = {};
             for (var data of form.elements) {
                 console.log("ID: "+data.id+", Value: "+data.value)
@@ -154,7 +154,7 @@
             document.getElementById('FailState').value,
             document.getElementById('FailReason').value
             )">Send!</button> -->
-        <button type="button" onclick="getFormElelemets(TestForm.id)">Send!</button>
+        <button type="button" onclick="testAPI(TestForm)">Send!</button>
     </form>
 </body>
 </html>
