@@ -123,10 +123,10 @@
         }
         var getFormElelemets = (formName)=>{
             var form = document.getElementById('TestForm');
-            var data = new FormData(form);
-            for (var [key, value] of data) {
-                console.log(key, value)
+            for (var data of form.elements) {
+                console.log(data)
             }
+            console.log("Done");
     }
     </script>
 </head>
