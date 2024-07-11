@@ -124,7 +124,7 @@
         var getFormElelemets = (formName)=>{
             var form = document.getElementById('TestForm');
             for (var data of form.elements) {
-                console.log(data)
+                console.log("ID: "+data.id+", Value: "+data.value)
             }
             console.log("Done");
     }
