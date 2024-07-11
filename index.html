@@ -101,8 +101,6 @@
             console.log(json);
             alert(json);
             
-            //raw = JSON.stringify(Object.fromEntries(formData));
-            
             // instantiate a headers object
             var myHeaders = new Headers();
             // add content type header to object
@@ -111,7 +109,7 @@
             var requestOptions = {
                 method: 'POST',
                 headers: myHeaders,
-                body: raw,
+                body: json,
                 redirect: 'follow'
             };
             // make API call with parameters and use promises to get response
