@@ -96,7 +96,7 @@
             for (var data of form.elements) {
                 console.log("ID: "+data.id+", Value: "+data.value)
                 tempObject = data.id , data.value
-                object.push(tempObject);
+                object.append(tempObject);
             }
             var json = JSON.stringify(object);
             console.log(json);
