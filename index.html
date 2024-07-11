@@ -95,6 +95,12 @@
             let object = {};
             for (var data of form.elements) {
                 console.log("ID: "+data.id+", Value: "+data.value)
+                if(data.id == "FailReason")
+                {
+                    if(data.value=='on')
+                    {data.value = true;}
+                    else{data.value=false;}
+                }
                 if(data.id != '' || data.value != ''){
                 object[data.id]=(data.value);}
             }
