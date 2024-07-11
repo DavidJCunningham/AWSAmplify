@@ -121,6 +121,12 @@
             .then(result => alert(JSON.parse(result).body))
             .catch(error => console.log('error', error));
         }
+        var getFormElelemets = (formName)=>{
+            var elements = document.forms[formName].elements;
+            for (i=0; i<elements.length; i++){
+                console.log(elements[i].id);
+            }
+    }
     </script>
 </head>
 <body>
@@ -154,7 +160,7 @@
             document.getElementById('FailState').value,
             document.getElementById('FailReason').value
             )">Send!</button> -->
-        <button type="button" onclick="testAPI(TestForm)">Send!</button>
+        <button type="button" onclick="getFormElelemets(TestForm)">Send!</button>
     </form>
 </body>
 </html>
