@@ -122,9 +122,10 @@
             .catch(error => console.log('error', error));
         }
         var getFormElelemets = (formName)=>{
-            var elements = document.forms[formName].elements;
-            for (i=0; i<elements.length; i++){
-                console.log(elements[i].id);
+            var form = document.getElementById('TestForm');
+            var data = new FormData(form);
+            for (var [key, value] of data) {
+                console.log(key, value)
             }
     }
     </script>
