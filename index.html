@@ -90,25 +90,25 @@
             .then(result => alert(JSON.parse(result).body))
             .catch(error => console.log('error', error));
         }
-        var testAPI = (TestForm)=>{
-            let formData = new FormData(TestForm);
+        var testAPI = (form)=>{
+            //var form = document.getElementById('TestForm');
             let object = {};
-            console.log(formData);
-            console.log(TestForm);
-            formData.forEach(function(value, key){
-                object[key] = value;
-                console.log("Value: "+value+", key:"+key);
-            });
+            for (var data of form.elements) {
+                console.log("ID: "+data.id+", Value: "+data.value)
+                tempObject = data.id , data.value
+                object.push(tempObject);
+            }
             var json = JSON.stringify(object);
+            console.log(json);
             alert(json);
-
-            raw = JSON.stringify(Object.fromEntries(formData));
+            
+            //raw = JSON.stringify(Object.fromEntries(formData));
             
             // instantiate a headers object
             var myHeaders = new Headers();
             // add content type header to object
-            myHeaders.append("Content-Type", "application/json"); 
-            
+            myHeaders.append("Content-Type", "application/json");
+            // create a JSON object with parameters for API call and store in a variable
             var requestOptions = {
                 method: 'POST',
                 headers: myHeaders,
@@ -120,14 +120,7 @@
             .then(response => response.text())
             .then(result => alert(JSON.parse(result).body))
             .catch(error => console.log('error', error));
-        }
-        var getFormElelemets = (formName)=>{
-            var form = document.getElementById('TestForm');
-            for (var data of form.elements) {
-                console.log("ID: "+data.id+", Value: "+data.value)
-            }
-            console.log("Done");
-    }
+        }  
     </script>
 </head>
 <body>
