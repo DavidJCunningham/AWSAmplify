@@ -93,10 +93,12 @@
         var testAPI = (form)=>{
             //var form = document.getElementById(formID);
             let object = {};
+            key = 0;
             for (var data of form.elements) {
                 console.log("ID: "+data.id+", Value: "+data.value)
                 tempObject = data.id,data.value
-                object.append(tempObject);
+                object[key]=(tempObject);
+                key = key+1;
             }
             var json = JSON.stringify(object);
             console.log(json);
