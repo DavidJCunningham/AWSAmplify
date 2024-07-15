@@ -125,12 +125,36 @@
             .then(result => alert(JSON.parse(result).body))
             .catch(error => console.log('error', error));
         }  
+        var getAPI = ()=>{
+            elem = document.getElementById("GetForm");
+
+            var json = JSON.stringify(object);
+            console.log(json);
+            alert(json);
+            
+            // instantiate a headers object
+            var myHeaders = new Headers();
+            // add content type header to object
+            myHeaders.append("Content-Type", "application/json");
+            // create a JSON object with parameters for API call and store in a variable
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: json,
+                redirect: 'follow'
+            };
+            // make API call with parameters and use promises to get response
+            fetch("https://c6djl20pr1.execute-api.eu-west-2.amazonaws.com/dev", requestOptions)
+            .then(response => response.text())
+            .then(result => alert(JSON.parse(result).body))
+            .catch(error => console.log('error', error));
+        }
     </script>
 </head>
 <body>
     <h1>Add Device to Server!</h1>
+    <h2>Unit Details</h2>
     <form id="TestForm">
-        <label>Unit Details</label>
         <label>Serial:</label>
         <input type="text" id="SerialNumber">
         <label>Battery:</label>
@@ -140,15 +164,23 @@
         <input type="checkbox" id="FailState">
         <label>Fail Reason:</label>
         <input type="text" id="FailReason">
-        <!-- set button onClick method to call function we defined passing input values as parameters -->
-        <!-- <button type="button" onclick="generalAPI(
-            document.getElementById('SerialNumber').value,
-            document.getElementById('BatterySerial').value,
-            document.getElementById('IMEI').value,
-            document.getElementById('FailState').value,
-            document.getElementById('FailReason').value
-            )">Send!</button> -->
-        <button type="button" onclick="testAPI(TestForm)">Send!</button>
+        <select name="failReason" id="FailReason">
+            <option value="DistanceFail">Distance Fail</option>
+            <option value="SensorFail">Sensor Fail</option>
+            <option value="ForcedSendFail">Forced Send Fail</option>
+            <option value="NANT">No Antenna</option>
+            <option value="NO_REG">NO_REG</option>
+            <option value="CACT_0">CACT_0</option>
+          </select>
+        <button type="button" onclick="testAPI(TestForm)">Post!</button>
+        
+    <h1>Get Device to Server!</h1>
+    <h2>Unit Details</h2>
+    </form>
+    <form id="GetForm">
+        <label>Serial:</label>
+        <input type="text" id="SerialNumber">
+        <button type="button" onclick="testAPI()">Get!</button>
     </form>
 </body>
 </html>
