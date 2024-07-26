@@ -126,7 +126,8 @@
             .catch(error => console.log('error', error));
         }  
         var getAPI = (SerialNumber)=>{
-            var json = JSON.stringify({"SerialNumber":SerialNumber});
+            console.log(GetForm.SerialNumber);
+            var json = JSON.stringify({"SerialNumber":GetForm.SerialNumber});
             console.log(json);
             
             // instantiate a headers object
