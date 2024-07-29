@@ -156,7 +156,8 @@
         <input type="text" id="SerialNumber">
         <label>Battery:</label>
         <input type="text" id="BatterySerial">
-        <label id="IMEI">357104855362579</label>
+        <label>IMEI:</label>
+        <input type="text" id="IMEI">
         <label>Fail?</label>
         <input type="checkbox" id="FailState">
         <label>Fail Reason:</label>
@@ -168,11 +169,12 @@
             <option value="NO_REG">NO_REG</option>
             <option value="CACT_0">CACT_0</option>
           </select>
-        <button type="button" onclick="postAPI(TestForm)">Post!</button>
+          
+    </form>
+    <button type="button" onclick="postAPI(TestForm)">Post!</button>
         
     <h1>Get Device From Server!</h1>
     <h2>Unit Details</h2>
-    </form>
     <form id="GetForm">
         <label>Serial:</label>
         <input type="text" id="SerialNumber">
