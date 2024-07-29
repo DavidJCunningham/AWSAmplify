@@ -98,9 +98,9 @@
                 if(data.id == "FailState")
                 {
                     if(data.value=="Pass")
-                    {FailEnabled = true;}
-                    if(data.value=="Fail")
                     {FailEnabled = false;}
+                    if(data.value=="Fail")
+                    {FailEnabled = true;}
                 }
                 if(data.id != '' || data.value != ''){
                     if(data.id!='FailReason' || (data.id=='FailReason' && FailEnabled)){
