@@ -98,11 +98,11 @@
                 console.log("ID: "+data.id+", Value: "+data.value)
                 if(data.id == "FailState")
                 {
-                    console.log(data.value);
+                    //console.log(data.value);
                     if(data.value=='Pass')
-                    {FailEnabled = true;}
+                    {FailEnabled = true; print(data.value);}
                     if(data.value=='Fail')
-                    {FailEnabled = false;}
+                    {FailEnabled = false; print(data.value);}
                 }
                 if(data.id != '' || data.value != ''){
                     if(data.value!="FailReason" || (data.value=="FailReason" && FailEnabled)){
@@ -178,9 +178,8 @@
             <option value="NO_REG">NO_REG</option>
             <option value="CACT_0">CACT_0</option>
         </select>
-          
+        <button type="button" onclick="postAPI(TestForm)">Post!</button>
     </form>
-    <button type="button" onclick="postAPI(TestForm)">Post!</button>
         
     <h1>Get Device From Server!</h1>
     <h2>Unit Details</h2>
