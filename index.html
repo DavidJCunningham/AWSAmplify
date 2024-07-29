@@ -99,8 +99,8 @@
                 if(data.id == "FailState")
                 {
                     if(data.value=='on')
-                    {data.value = FailEnabled = true;}
-                    else{data.value = FailEnabled = false;}
+                    {data.value = true; FailEnabled = true;}
+                    else{data.value = false; FailEnabled = false;}
                 }
                 if(data.id != '' || data.value != ''){
                     if(data.value!="FailReason" || (data.value=="FailReason" && FailEnabled)){
