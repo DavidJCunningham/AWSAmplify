@@ -103,10 +103,7 @@
                     {FailEnabled = true;}
                 }
                 if(data.id != '' || data.value != ''){
-                    if(data.id=='FailReason' && FailEnabled){
-                        console.log(data.value, "NONE");
-                        object[data.id]=("NONE");}
-                    else{
+                    if(data.id!='FailReason' || (data.id=='FailReason' && FailEnabled)){
                         console.log(data.value, FailEnabled);
                         object[data.id]=(data.value);}
                     }
