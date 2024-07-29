@@ -100,9 +100,9 @@
                 {
                     console.log(data.value);
                     if(data.value=='Pass')
-                    {data.value = true; FailEnabled = true;}
+                    {FailEnabled = true;}
                     if(data.value=='Fail')
-                    {data.value = false; FailEnabled = false;}
+                    {FailEnabled = false;}
                 }
                 if(data.id != '' || data.value != ''){
                     if(data.value!="FailReason" || (data.value=="FailReason" && FailEnabled)){
@@ -165,11 +165,12 @@
         <input type="text" id="IMEI">
         <label>Test Result</label>
         <select name="failState" id="FailState">
-            <option value="Pass">Distance Fail</option>
-            <option value="Fail">Sensor Fail</option>
+            <option value="Pass">Pass</option>
+            <option value="Fail">Fail</option>
         </select>
         <label>Fail Reason:</label>
         <select name="failReason" id="FailReason">
+            <option value="N/A"></option>
             <option value="DistanceFail">Distance Fail</option>
             <option value="SensorFail">Sensor Fail</option>
             <option value="ForcedSendFail">Forced Send Fail</option>
