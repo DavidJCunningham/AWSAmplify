@@ -91,29 +91,25 @@
             .catch(error => console.log('error', error));
         }
         var postAPI = (form)=>{
-            //var form = document.getElementById(formID);
             let object = {};
             var FailEnabled = false;
             for (var data of form.elements) {
-                console.log("ID: "+data.id+", Value: "+data.value)
                 if(data.id == "FailState")
                 {
-                    //console.log(data.value);
                     if(data.value=="Pass")
-                    {FailEnabled = true; console.log(data.value);}
+                    {FailEnabled = true;}
                     if(data.value=="Fail")
-                    {FailEnabled = false; console.log(data.value);}
+                    {FailEnabled = false;}
                 }
                 if(data.id != '' || data.value != ''){
                     if(data.value!="FailReason" || (data.value=="FailReason" && FailEnabled)){
-                        console.log(data.value);
-                        console.log(FailEnabled);
+                        console.log(data.value, FailEnabled);
                         object[data.id]=(data.value);}
                     }
             }
             var json = JSON.stringify(object);
-            console.log(json);
-            alert(json);
+            //console.log(json);
+            //alert(json);
             
             // instantiate a headers object
             var myHeaders = new Headers();
