@@ -98,6 +98,7 @@
                 console.log("ID: "+data.id+", Value: "+data.value)
                 if(data.id == "FailState")
                 {
+                    Console.log(data.value);
                     if(data.value=='on')
                     {data.value = true; FailEnabled = true;}
                     else{data.value = false; FailEnabled = false;}
