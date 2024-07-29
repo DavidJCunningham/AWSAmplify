@@ -99,9 +99,10 @@
                 if(data.id == "FailState")
                 {
                     console.log(data.value);
-                    if(data.value=='on')
+                    if(data.value=='Pass')
                     {data.value = true; FailEnabled = true;}
-                    else{data.value = false; FailEnabled = false;}
+                    if(data.value=='Fail')
+                    {data.value = false; FailEnabled = false;}
                 }
                 if(data.id != '' || data.value != ''){
                     if(data.value!="FailReason" || (data.value=="FailReason" && FailEnabled)){
@@ -162,8 +163,11 @@
         <input type="text" id="BatterySerial">
         <label>IMEI:</label>
         <input type="text" id="IMEI">
-        <label>Fail?</label>
-        <input type="checkbox" id="FailState">
+        <label>Test Result</label>
+        <select name="failState" id="FailState">
+            <option value="Pass">Distance Fail</option>
+            <option value="Fail">Sensor Fail</option>
+        </select>
         <label>Fail Reason:</label>
         <select name="failReason" id="FailReason">
             <option value="DistanceFail">Distance Fail</option>
@@ -172,7 +176,7 @@
             <option value="NANT">No Antenna</option>
             <option value="NO_REG">NO_REG</option>
             <option value="CACT_0">CACT_0</option>
-          </select>
+        </select>
           
     </form>
     <button type="button" onclick="postAPI(TestForm)">Post!</button>
