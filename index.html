@@ -93,16 +93,19 @@
         var postAPI = (form)=>{
             //var form = document.getElementById(formID);
             let object = {};
+            var FailEnabled = false;
             for (var data of form.elements) {
                 console.log("ID: "+data.id+", Value: "+data.value)
                 if(data.id == "FailState")
                 {
                     if(data.value=='on')
-                    {data.value = true;}
-                    else{data.value=false;}
+                    {data.value = FailEnabled = true;}
+                    else{data.value = FailEnabled = false;}
                 }
                 if(data.id != '' || data.value != ''){
-                object[data.id]=(data.value);}
+                    if(data.value!="FailState" || (data.value=="FailState" && FailEnabled)){
+                        object[data.id]=(data.value);}
+                    }
             }
             var json = JSON.stringify(object);
             console.log(json);
