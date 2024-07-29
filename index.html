@@ -91,6 +91,7 @@
             .catch(error => console.log('error', error));
         }
         var postAPI = (form)=>{
+            console.log("Form Parse Start")
             let object = {};
             var FailEnabled = false;
             for (var data of form.elements) {
@@ -102,14 +103,13 @@
                     {FailEnabled = false;}
                 }
                 if(data.id != '' || data.value != ''){
-                    if(data.value!="FailReason" || (data.value=="FailReason" && !FailEnabled)){
+                    if(data.value!="FailReason" || (data.value=="FailReason" && FailEnabled)){
                         console.log(data.value, FailEnabled);
                         object[data.id]=(data.value);}
                     }
             }
+            console.log(object);
             var json = JSON.stringify(object);
-            //console.log(json);
-            //alert(json);
             
             // instantiate a headers object
             var myHeaders = new Headers();
