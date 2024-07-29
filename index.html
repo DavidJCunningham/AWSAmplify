@@ -99,13 +99,15 @@
                 if(data.id == "FailState")
                 {
                     //console.log(data.value);
-                    if(data.value=='Pass')
+                    if(data.value=="Pass")
                     {FailEnabled = true; console.log(data.value);}
-                    if(data.value=='Fail')
+                    if(data.value=="Fail")
                     {FailEnabled = false; console.log(data.value);}
                 }
                 if(data.id != '' || data.value != ''){
                     if(data.value!="FailReason" || (data.value=="FailReason" && FailEnabled)){
+                        console.log(data.value);
+                        console.log(FailEnabled);
                         object[data.id]=(data.value);}
                     }
             }
