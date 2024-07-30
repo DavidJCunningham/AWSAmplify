@@ -128,11 +128,11 @@
             .then(result => alert(JSON.parse(result).body))
             .catch(error => console.log('error', error));
         }  
-        const querystring = require('node:querystring'); 
         var getAPI = (SerialNumber)=>{
-            var json = JSON.stringify({"SerialNumber":SerialNumber.value});
-            var query = querystring.stringify(json)
-            console.log(json);
+            var json = {"SerialNumber":SerialNumber.value};
+            //json = JSON.stringify({"SerialNumber":SerialNumber.value});
+            var url = "https://c6djl20pr1.execute-api.eu-west-2.amazonaws.com/dev/"
+            var query = encodeQuery(json);
             
             // instantiate a headers object
             var myHeaders = new Headers();
@@ -142,15 +142,22 @@
             var requestOptions = {
                 method: 'GET',
                 headers: myHeaders,
-                body: json,
                 redirect: 'follow'
             };
-            givenUrl = "https://c6djl20pr1.execute-api.eu-west-2.amazonaws.com/dev/" + query;
+            givenUrl = "https://c6djl20pr1.execute-api.eu-west-2.amazonaws.com/dev/" +"?"+ query;
+            console.log(requestOptions,givenUrl);
             // make API call with parameters and use promises to get response
             fetch(givenUrl, requestOptions)
             .then(response => response.text())
             .then(result => alert(JSON.parse(result).body))
             .catch(error => console.log('error', error));
+        }
+        function encodeQuery(data) {
+            let query = ""
+            for (let d in data)
+                query += encodeURIComponent(d) + '='
+                    + encodeURIComponent(data[d]) + '&'
+            return query.slice(0, -1)
         }
     </script>
 </head>
