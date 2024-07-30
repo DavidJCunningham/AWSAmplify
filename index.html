@@ -128,8 +128,10 @@
             .then(result => alert(JSON.parse(result).body))
             .catch(error => console.log('error', error));
         }  
+        const querystring = require('node:querystring'); 
         var getAPI = (SerialNumber)=>{
             var json = JSON.stringify({"SerialNumber":SerialNumber.value});
+            var query = querystring.stringify(json)
             console.log(json);
             
             // instantiate a headers object
@@ -143,8 +145,9 @@
                 body: json,
                 redirect: 'follow'
             };
+            givenUrl = "https://c6djl20pr1.execute-api.eu-west-2.amazonaws.com/dev/" + query;
             // make API call with parameters and use promises to get response
-            fetch("https://c6djl20pr1.execute-api.eu-west-2.amazonaws.com/dev", requestOptions)
+            fetch(givenUrl, requestOptions)
             .then(response => response.text())
             .then(result => alert(JSON.parse(result).body))
             .catch(error => console.log('error', error));
