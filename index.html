@@ -149,11 +149,54 @@
             // make API call with parameters and use promises to get response
             fetch(givenUrl, requestOptions)
             .then(response => response.text())
-            .then(result => displayGetData(JSON.parse(result).body))
+            .then(result => displayGetData(JSON.parse(result)))
             .catch(error => console.log('error', error));
         }
         function displayGetData(data){
-            ReturnDisplay.text = data;
+            dataAsText = data.body;
+            parsedData = JSON.parse(dataAsText);
+            var id = "";
+            let list = document.getElementById("UnList");
+            
+            var HeaderRow = list.insertRow(0);
+            var HeadCells = [];
+            var HeadInt = 0;
+            //just for header
+            for(let column in parsedData[0]){
+                HeadCells[HeadInt] = HeaderRow.insertCell();
+                HeadCells[HeadInt].textContent = [column];
+                    HeadInt += 1;
+            }
+            list.appendChild(HeaderRow);
+            //for values
+            for (let row in parsedData) {
+                console.log(parsedData[row]);
+                //var li = document.createElement("row"+row);
+                var TRow = list.insertRow(row);
+                var cells = [];
+                var tempInt = 0;
+                for(let column in parsedData[row]){
+                    //var col = li.insertCell(column);
+                    //const newCell = document.createElement("row").insertCell();
+                    //newCell.textContent = column;
+                    //cells[tempInt] = TRow.insertCell(parsedData[row][column]);
+                    //cells[tempInt].innerHTML = parsedData[row].ConnectionType;
+                    cells[tempInt] = TRow.insertCell();
+                    cells[tempInt].textContent = parsedData[row][column];
+                    tempInt += 1;
+                }
+                list.appendChild(TRow);
+            }
+            
+            for (let column in parsedData[0]){
+
+            }
+
+            // for (let i in parsedData)
+            // {
+            //     id = "SerialNumber"+i
+            //     document.getElementById(id).innerHTML += parsedData[i].SerialNumber;
+            // }
         }
         function encodeQuery(data) {
             let query = ""
@@ -196,9 +239,9 @@
     <h2>Unit Details</h2>
     <form id="GetForm">
         <label>Serial:</label>
-        <input type="text" id="SerialNumber">
+        <input type="text" id="SerialNumber" value = 1342390003605>
         <button type="button" onclick="getAPI(GetForm.SerialNumber)">Get!</button>
     </form>
-    <h3 id="ReturnDisplay"></h3>
+    <table id="UnList" style="background-color: white; column-rule-color: red;" tr:hover {background-color: #D6EEEE;}></table>
 </body>
 </html>
