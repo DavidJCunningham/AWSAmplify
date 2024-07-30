@@ -150,6 +150,7 @@
             fetch(givenUrl, requestOptions)
             .then(response => response.text())
             .then(result => alert(JSON.parse(result).body))
+            .then(result => ReturnDisplay.text = JSON.parse(result).body)
             .catch(error => console.log('error', error));
         }
         function encodeQuery(data) {
@@ -196,5 +197,6 @@
         <input type="text" id="SerialNumber">
         <button type="button" onclick="getAPI(GetForm.SerialNumber)">Get!</button>
     </form>
+    <h3 id="ReturnDisplay"></h3>
 </body>
 </html>
