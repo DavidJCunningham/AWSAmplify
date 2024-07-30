@@ -134,16 +134,17 @@
             var url = "https://c6djl20pr1.execute-api.eu-west-2.amazonaws.com/dev/"
             var query = encodeQuery(json);
             
-            // instantiate a headers object
-            var myHeaders = new Headers();
             // add content type header to object
-            myHeaders.append("Content-Type", "application/json");
-            // add cors permissions to headers
-            myHeaders.append("access-control-allow-headers","*", "Authorization, Content-Type","X-Amz-Date","Authorization","X-Api-Key","X-Amz-Security-Token")
+            const headers = {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Headers': 'Access-Control-Allow-Headers, Content-Type, Authorization',
+                'Access-Control-Allow-Methods': '*',
+                "Content-Type": "application/json"
+            };
             // create a JSON object with parameters for API call and store in a variable
             var requestOptions = {
                 method: 'GET',
-                headers: myHeaders,
+                headers: headers,
                 redirect: 'follow',
             };
             givenUrl = "https://c6djl20pr1.execute-api.eu-west-2.amazonaws.com/dev/" +"?"+ query;
