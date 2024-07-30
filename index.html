@@ -150,7 +150,7 @@
             fetch(givenUrl, requestOptions)
             .then(response => response.text())
             .then(result => alert(JSON.parse(result).body))
-            .then(result => ReturnDisplay.text = JSON.parse(result).body)
+            .then(result => ReturnDisplay.text = result)
             .catch(error => console.log('error', error));
         }
         function encodeQuery(data) {
