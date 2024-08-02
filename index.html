@@ -206,6 +206,34 @@
             return query.slice(0, -1)
         }
     </script>
+    <style>
+        table,
+        th,
+        td {
+            border: 2px solid black;
+            border-collapse: collapse;
+        }
+        th,
+        td {
+            padding: 15px;
+        }
+        th {
+            text-align: left;
+            background-color: #54346a;
+        }
+        tr:hover {
+            background-color: #909b9b66;
+        }
+        tr:nth-child(0) {
+            background-color: #454545;
+        }
+        tr:nth-child(even) {
+            background-color: #876b9a;
+        }
+        tr:nth-child(odd) {
+            background-color: #a18e9f;
+        }
+    </style>
 </head>
 <body>
     <h1>Add Device to Server!</h1>
