@@ -222,9 +222,6 @@
             background-color: #531745;
             color: #ffffff;
         }
-        tr:hover {
-            background-color: #909b9b66;
-        }
         tr:nth-child(even) {
             background-color: #341a41;
             color: #ffffff;
@@ -236,6 +233,13 @@
         tr:nth-child(0) {
             background-color: #531745;
             color: #ffffff;
+        }
+        tr:hover {
+            td
+            {
+            background-color: #909b9b66;
+            color: #ffffff;
+            }
         }
     </style>
 </head>
@@ -274,6 +278,6 @@
         <input type="text" id="SerialNumber" value = 1342390003605>
         <button type="button" onclick="getAPI(GetForm.SerialNumber)">Get!</button>
     </form>
-    <table id="UnList" style="background-color: white; column-rule-color: red;" tr:hover {background-color: #D6EEEE;}></table>
+    <table id="UnList"></table>
 </body>
 </html>
