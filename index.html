@@ -205,6 +205,31 @@
                     + encodeURIComponent(data[d]) + '&'
             return query.slice(0, -1)
         }
+        function testAPI(){
+            var url = "https://n6uac60or4.execute-api.eu-west-1.amazonaws.com/beta/"
+            var query = encodeQuery(json);
+            
+            // add content type header to object
+            const headers = {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin":"*",
+                "Access-Control-Allow-Methods": "GET, POST, PUT",
+                "Access-Control-Allow-Headers": "Content-Type"
+            };
+            // create a JSON object with parameters for API call and store in a variable
+            var requestOptions = {
+                method: 'GET',
+                headers: headers,
+                redirect: 'follow',
+            };
+            givenUrl = "https://n6uac60or4.execute-api.eu-west-1.amazonaws.com/beta/query1"
+            console.log(requestOptions,givenUrl);
+            // make API call with parameters and use promises to get response
+            fetch(givenUrl, requestOptions)
+            .then(response => response.text())
+            .then(result => displayGetData(JSON.parse(result)))
+            .catch(error => console.log('error', error));
+        }
     </script>
     <style>
         table,
@@ -279,5 +304,6 @@
         <button type="button" onclick="getAPI(GetForm.SerialNumber)">Get!</button>
     </form>
     <table id="UnList"></table>
+    <button type="button" onclick="testAPI()">Test Press</button>
 </body>
 </html>
