@@ -63,7 +63,7 @@
                 redirect: 'follow'
             };
             // make API call with parameters and use promises to get response
-            fetch("https://c6djl20pr1.execute-api.eu-west-2.amazonaws.com/dev", requestOptions)
+            fetch("https://n6uac60or4.execute-api.eu-west-1.amazonaws.com/beta/", requestOptions)
             .then(response => response.text())
             .then(result => alert(JSON.parse(result).body))
             .catch(error => console.log('error', error));
@@ -85,7 +85,7 @@
                 redirect: 'follow'
             };
             // make API call with parameters and use promises to get response
-            fetch("https://c6djl20pr1.execute-api.eu-west-2.amazonaws.com/dev", requestOptions)
+            fetch("https://n6uac60or4.execute-api.eu-west-1.amazonaws.com/beta/", requestOptions)
             .then(response => response.text())
             .then(result => alert(JSON.parse(result).body))
             .catch(error => console.log('error', error));
@@ -123,7 +123,7 @@
                 redirect: 'follow'
             };
             // make API call with parameters and use promises to get response
-            fetch("https://c6djl20pr1.execute-api.eu-west-2.amazonaws.com/dev", requestOptions)
+            fetch("https://n6uac60or4.execute-api.eu-west-1.amazonaws.com/beta/", requestOptions)
             .then(response => response.text())
             .then(result => alert(JSON.parse(result).body))
             .catch(error => console.log('error', error));
@@ -131,7 +131,7 @@
         var getAPI = (SerialNumber)=>{
             var json = {"SerialNumber":SerialNumber.value};
             //json = JSON.stringify({"SerialNumber":SerialNumber.value});
-            var url = "https://c6djl20pr1.execute-api.eu-west-2.amazonaws.com/dev/"
+            var url = "https://n6uac60or4.execute-api.eu-west-1.amazonaws.com/beta/"
             var query = encodeQuery(json);
             
             // add content type header to object
@@ -144,7 +144,7 @@
                 headers: headers,
                 redirect: 'follow',
             };
-            givenUrl = "https://c6djl20pr1.execute-api.eu-west-2.amazonaws.com/dev/" +"?"+ query;
+            givenUrl = "https://n6uac60or4.execute-api.eu-west-1.amazonaws.com/beta/" +"?"+ query;
             console.log(requestOptions,givenUrl);
             // make API call with parameters and use promises to get response
             fetch(givenUrl, requestOptions)
