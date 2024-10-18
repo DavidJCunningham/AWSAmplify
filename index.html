@@ -225,7 +225,7 @@
             fetch(givenUrl, requestOptions)
             .then(response => response.text())
             .then(result => displayGetData(JSON.parse(result)))
-            .catch(error => console.log('error', error));
+            .catch(error => console.log('error in result: '+result, error));
         }
     </script>
     <style>
