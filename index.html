@@ -157,6 +157,7 @@
             .catch(error => console.log('error', error));
         }
         function displayGetData(data){
+            console.log("displayGetData: "+data);
             dataAsText = data.body;
             parsedData = JSON.parse(dataAsText);
             var id = "";
@@ -192,9 +193,9 @@
                 list.appendChild(TRow);
             }
             
-            for (let column in parsedData[0]){
-
-            }
+            // for (let column in parsedData[0]){
+                
+            // }
 
             // for (let i in parsedData)
             // {
