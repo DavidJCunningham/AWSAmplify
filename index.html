@@ -129,11 +129,16 @@
             .catch(error => console.log('error', error));
         }  
         var getAPI = (SerialNumber)=>{
+            if(SerialNumber.value == null)
+            {
+                window.alert("Serial Field Missing Value");
+                return;
+            }
             var json = {"SerialNumber":SerialNumber.value};
             //json = JSON.stringify({"SerialNumber":SerialNumber.value});
-            var url = "https://n6uac60or4.execute-api.eu-west-1.amazonaws.com/beta/"
+            var url = "https://n6uac60or4.execute-api.eu-west-1.amazonaws.com/beta/query1"
             var query = encodeQuery(json);
-            
+            givenUrl = url +"?"+ query;
             // add content type header to object
             const headers = {
                 "Content-Type": "application/json"
@@ -144,7 +149,6 @@
                 headers: headers,
                 redirect: 'follow',
             };
-            givenUrl = "https://n6uac60or4.execute-api.eu-west-1.amazonaws.com/beta/" +"?"+ query;
             console.log(requestOptions,givenUrl);
             // make API call with parameters and use promises to get response
             fetch(givenUrl, requestOptions)
