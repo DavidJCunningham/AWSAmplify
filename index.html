@@ -4,48 +4,6 @@
     <meta charset="UTF-8">
     <title>To the Power of Math!</title>
     <!-- Styling for the client UI -->
-    <style>
-    h1 {
-        color: #FFFFFF;
-        font-family: system-ui;
-		margin-left: 20px;
-        }
-    h2 {
-        color: #FFFFFF;
-        font-family: system-ui;
-		margin-left: 20px;
-        }
-	body {
-        background-color: #222629;
-        }
-    label {
-        color: #ffffff;
-        font-family: system-ui;
-        font-size: 20px;
-        margin-left: 20px;
-		margin-top: 20px;
-        }
-     button {
-        background-color: #54346a;
-		border-color: #0000005e;
-		color: #FFFFFF;
-        font-family: system-ui;
-        font-size: 20px;
-		font-weight: bold;
-        margin-left: 30px;
-		margin-top: 20px;
-		width: 140px;
-		height: 40px;
-        }
-	 input {
-        color: #222629;
-        font-family: system-ui;
-        font-size: 20px;
-        margin-left: 10px;
-		margin-top: 20px;
-		width: 100px;
-        }
-    </style>
     <script>
         // callAPI function that takes the base and exponent numbers as parameters
         var callAPI = (base,exponent)=>{
@@ -157,25 +115,39 @@
             .catch(error => console.log('error', error));
         }
         function displayGetData(data){
-
-            //dataAsText = data.body;
-            //console.log(dataAsText);
+            //Define and Clear old Table
+            let list = document.getElementById("UnList");
+            list.innerHTML = "";
+            
+            
+            //Parse JSON Data
             parsedData = JSON.parse(data);
             console.log(parsedData);
             var id = "";
-            let list = document.getElementById("UnList");
             
+            console.log(data);
+            //Check if data is valid
+            if(parsedData.message ==("Internal server error"))
+            {
+                window.alert("Internal Server Error")
+                return;
+            }
+
+            //Define Header
             var HeaderRow = list.insertRow(0);
             var HeadCells = [];
             var HeadInt = 0;
-            //just for header
+
+            //Add Data to Header
             for(let column in parsedData[0]){
                 HeadCells[HeadInt] = HeaderRow.insertCell();
                 HeadCells[HeadInt].textContent = [column];
                     HeadInt += 1;
             }
             list.appendChild(HeaderRow);
-            //for values
+
+            //Add Parsed Data to Rows
+            x = true;
             for (let row in parsedData) {
                 console.log(parsedData[row]);
                 //var li = document.createElement("row"+row);
@@ -236,6 +208,50 @@
         }
     </script>
     <style>
+        h1 {
+            color: #FFFFFF;
+            font-family: system-ui;
+            margin-left: 20px;
+            }
+        h2 {
+            color: #FFFFFF;
+            font-family: system-ui;
+            margin-left: 20px;
+            }
+        body {
+            background-color: #222629;
+            }
+        label {
+            color: #ffffff;
+            font-family: system-ui;
+            font-size: 20px;
+            margin-left: 20px;
+            margin-top: 20px;
+            }
+        button {
+            background-color: #54346a;
+            border-color: #0000005e;
+            color: #FFFFFF;
+            font-family: system-ui;
+            font-size: 20px;
+            font-weight: bold;
+            margin-left: 30px;
+            margin-top: 20px;
+            width: 140px;
+            height: 40px;
+            }
+        input {
+            color: #222629;
+            font-family: system-ui;
+            font-size: 20px;
+            margin-left: 10px;
+            margin-top: 20px;
+            width: 160px;
+            }
+        table {
+            margin-top: 20px;
+        }
+
         table,
         th,
         td {
@@ -277,7 +293,7 @@
     <h2>Unit Details</h2>
     <form id="TestForm">
         <label>Serial:</label>
-        <input type="text" id="SerialNumber">
+        <input type="text" id="SerialNumber" width="100">
         <label>Battery:</label>
         <input type="text" id="BatterySerial">
         <label>IMEI:</label>
@@ -302,6 +318,7 @@
         
     <h1>Get Device From Server!</h1>
     <h2>Unit Details</h2>
+
     <form id="GetForm">
         <label>Serial:</label>
         <input type="text" id="SerialNumber" value = 1342390003605>
