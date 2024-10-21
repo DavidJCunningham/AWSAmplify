@@ -157,9 +157,10 @@
             .catch(error => console.log('error', error));
         }
         function displayGetData(data){
-            dataAsText = data.body;
-            console.log(dataAsText);
-            parsedData = JSON.parse(dataAsText);
+
+            //dataAsText = data.body;
+            //console.log(dataAsText);
+            parsedData = JSON.parse(data);
             console.log(parsedData);
             var id = "";
             let list = document.getElementById("UnList");
