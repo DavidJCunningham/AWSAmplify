@@ -153,13 +153,14 @@
             // make API call with parameters and use promises to get response
             fetch(givenUrl, requestOptions)
             .then(response => response.text())
-            .then(result => displayGetData(JSON.parse(result)))
+            .then(result => displayGetData(result))
             .catch(error => console.log('error', error));
         }
         function displayGetData(data){
-            console.log("displayGetData: "+data);
             dataAsText = data.body;
+            console.log(dataAsText);
             parsedData = JSON.parse(dataAsText);
+            console.log(parsedData);
             var id = "";
             let list = document.getElementById("UnList");
             
