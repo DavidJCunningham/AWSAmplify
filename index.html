@@ -46,7 +46,7 @@
             fetch("https://n6uac60or4.execute-api.eu-west-1.amazonaws.com/beta/", requestOptions)
             .then(response => response.text())
             .then(result => alert(JSON.parse(result).body))
-            .catch(error => console.log('error', error));
+            .catch(error => window.alert('error', error));
         }
         var postAPI = (form)=>{
             console.log("Form Parse Start")
@@ -84,19 +84,21 @@
             fetch("https://n6uac60or4.execute-api.eu-west-1.amazonaws.com/beta/", requestOptions)
             .then(response => response.text())
             .then(result => alert(JSON.parse(result).body))
-            .catch(error => console.log('error', error));
+            .catch(error => window.alert('error', error));
         }  
-        var getAPI = (SerialNumber)=>{
-            if(SerialNumber.value == null)
+        var getFilterAPI = (Filter,FilterInput)=>{
+            if(FilterInput.value == "")
             {
-                window.alert("Serial Field Missing Value");
+                window.alert("Filter Field Missing Value");
                 return;
             }
-            var json = {"SerialNumber":SerialNumber.value};
+            x = Filter;
+            var json = {"Filter":Filter.value,"Value":FilterInput.value};
             //json = JSON.stringify({"SerialNumber":SerialNumber.value});
             var url = "https://n6uac60or4.execute-api.eu-west-1.amazonaws.com/beta/query1"
             var query = encodeQuery(json);
             givenUrl = url +"?"+ query;
+            console.log(givenUrl);
             // add content type header to object
             const headers = {
                 "Content-Type": "application/json"
@@ -107,12 +109,11 @@
                 headers: headers,
                 redirect: 'follow',
             };
-            console.log(requestOptions,givenUrl);
             // make API call with parameters and use promises to get response
             fetch(givenUrl, requestOptions)
             .then(response => response.text())
             .then(result => displayGetData(result))
-            .catch(error => console.log('error', error));
+            .catch(error => window.alert('error', error));
         }
         function displayGetData(data){
             //Define and Clear old Table
@@ -317,13 +318,18 @@
     </form>
         
     <h1>Get Device From Server!</h1>
-    <h2>Unit Details</h2>
-
-    <form id="GetForm">
-        <label>Serial:</label>
-        <input type="text" id="SerialNumber" value = 1342390003605>
-        <button type="button" onclick="getAPI(GetForm.SerialNumber)">Get!</button>
+    <h2>Filtered Details</h2>
+    <form id="GetSelectForm">
+        <select id="Filter">
+            <option value="SerialNumber">Serial Number</option>
+            <option value="BatterySerial">Battery Serial</option>
+            <option value="IMEI">IMEI</option>
+            <option value="FailState">Fail State</option>
+        </select>
+        <input type="text" id="FilterInput">
+        <button type="button" onclick="getFilterAPI(Filter,FilterInput)">Get!</button>
     </form>
+
     <table id="UnList"></table>
     <button type="button" onclick="testAPI()">Test Press</button>
 </body>
