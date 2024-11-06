@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <title>R&D - Test Form</title>
+    <!-- Styling for the client UI -->
+    <script>
+        // callAPI function that takes the base and exponent numbers as parameters
+        var callAPI = (base,exponent)=>{
+            // instantiate a headers object
+            var myHeaders = new Headers();
+            // add content type header to object
+            myHeaders.append("Content-Type", "application/json");
+            // using built in JSON utility package turn object to string and store in a variable
+            var raw = JSON.stringify({"base":base,"exponent":exponent});
+            // create a JSON object with parameters for API call and store in a variable
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+            // make API call with parameters and use promises to get response
+            fetch("https://n6uac60or4.execute-api.eu-west-1.amazonaws.com/beta/", requestOptions)
+            .then(response => response.text())
+            .then(result => alert(JSON.parse(result).body))
+            .catch(error => console.log('error', error));
+        }
+
+        // callAPI function that takes the base and exponent numbers as parameters
+        var generalAPI = (SerialNumber,BatterySerial,IMEI,FailState,FailReason)=>{
+            // instantiate a headers object
+            var myHeaders = new Headers();
+            // add content type header to object
+            myHeaders.append("Content-Type", "application/json");
+            // using built in JSON utility package turn object to string and store in a variable
+            var raw = JSON.stringify({"SerialNumber":SerialNumber,"BatterySerial":BatterySerial,"IMEI":IMEI,"FailState":FailState,"FailReason":FailReason});
+            // create a JSON object with parameters for API call and store in a variable
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+            // make API call with parameters and use promises to get response
+            fetch("https://n6uac60or4.execute-api.eu-west-1.amazonaws.com/beta/", requestOptions)
+            .then(response => response.text())
+            .then(result => alert(JSON.parse(result).body))
+            .catch(error => window.alert('error', error));
+        }
+        var postAPI = (form)=>{
+            console.log("Form Parse Start")
+            let object = {};
+            var FailEnabled = false;
+            for (var data of form.elements) {
+                if(data.id == "FailState")
+                {
+                    if(data.value=="Pass")
+                    {FailEnabled = false;}
+                    if(data.value=="Fail")
+                    {FailEnabled = true;}
+                }
+                if(data.id != '' || data.value != ''){
+                    if(data.id!='FailReason' || (data.id=='FailReason' && FailEnabled)){
+                        console.log(data.value, FailEnabled);
+                        object[data.id]=(data.value);}
+                    }
+            }
+            console.log(object);            
+            // instantiate a headers object
+            var myHeaders = new Headers();
+            // add content type header to object
+            myHeaders.append("Content-Type", "application/json");
+            // create a JSON object with parameters for API call and store in a variable
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: object,
+                redirect: 'follow'
+            };
+            console.log(requestOptions);
+            var url = "https://n6uac60or4.execute-api.eu-west-1.amazonaws.com/beta/query1"
+            // make API call with parameters and use promises to get response
+            fetch(url, requestOptions)
+            .then(response => response.text())
+            .then(result => alert(JSON.parse(result).body))
+            .catch(error => window.alert('error', error));
+        }  
+        var getFilterAPI = (Filter,FilterInput)=>{
+            if(FilterInput.value == "")
+            {
+                window.alert("Filter Field Missing Value");
+                return;
+            }
+            x = Filter;
+            var json = {"Filter":Filter.value,"Value":FilterInput.value};
+            //json = JSON.stringify({"SerialNumber":SerialNumber.value});
+            var url = "https://n6uac60or4.execute-api.eu-west-1.amazonaws.com/beta/query1"
+            var query = encodeQuery(json);
+            givenUrl = url +"?"+ query;
+            console.log(givenUrl);
+            // add content type header to object
+            const headers = {
+                "Content-Type": "application/json"
+            };
+            // create a JSON object with parameters for API call and store in a variable
+            var requestOptions = {
+                method: 'GET',
+                headers: headers,
+                redirect: 'follow',
+            };
+            // make API call with parameters and use promises to get response
+            fetch(givenUrl, requestOptions)
+            .then(response => response.text())
+            .then(result => displayGetData(result))
+            .catch(error => window.alert('error', error));
+        }
+        function displayGetData(data){
+            //Define and Clear old Table
+            let list = document.getElementById("UnList");
+            list.innerHTML = "";
+            
+            
+            //Parse JSON Data
+            parsedData = JSON.parse(data);
+            console.log(parsedData);
+            var id = "";
+            
+            console.log(data);
+            //Check if data is valid
+            if(parsedData.message ==("Internal server error"))
+            {
+                window.alert("Internal Server Error")
+                return;
+            }
+
+            //Define Header
+            var HeaderRow = list.insertRow(0);
+            var HeadCells = [];
+            var HeadInt = 0;
+
+            //Add Data to Header
+            for(let column in parsedData[0]){
+                HeadCells[HeadInt] = HeaderRow.insertCell();
+                HeadCells[HeadInt].textContent = [column];
+                    HeadInt += 1;
+            }
+            list.appendChild(HeaderRow);
+
+            //Add Parsed Data to Rows
+            x = true;
+            for (let row in parsedData) {
+                console.log(parsedData[row]);
+                //var li = document.createElement("row"+row);
+                var TRow = list.insertRow(row);
+                var cells = [];
+                var tempInt = 0;
+                for(let column in parsedData[row]){
+                    //var col = li.insertCell(column);
+                    //const newCell = document.createElement("row").insertCell();
+                    //newCell.textContent = column;
+                    //cells[tempInt] = TRow.insertCell(parsedData[row][column]);
+                    //cells[tempInt].innerHTML = parsedData[row].ConnectionType;
+                    cells[tempInt] = TRow.insertCell();
+                    cells[tempInt].textContent = parsedData[row][column];
+                    tempInt += 1;
+                }
+                list.appendChild(TRow);
+            }
+            
+            // for (let column in parsedData[0]){
+                
+            // }
+
+            // for (let i in parsedData)
+            // {
+            //     id = "SerialNumber"+i
+            //     document.getElementById(id).innerHTML += parsedData[i].SerialNumber;
+            // }
+        }
+        function encodeQuery(data) {
+            let query = ""
+            for (let d in data)
+                query += encodeURIComponent(d) + '='
+                    + encodeURIComponent(data[d]) + '&'
+            return query.slice(0, -1)
+        }
+        function testAPI(){
+            var url = "https://n6uac60or4.execute-api.eu-west-1.amazonaws.com/beta/"
+            //var query = encodeQuery();
+            
+            // add content type header to object
+            const headers = {
+                "Content-Type": "application/json"
+            };
+            // create a JSON object with parameters for API call and store in a variable
+            var requestOptions = {
+                method: 'GET',
+                headers: headers,
+                redirect: 'follow',
+            };
+            givenUrl = "https://n6uac60or4.execute-api.eu-west-1.amazonaws.com/beta/query1"
+            console.log(requestOptions,givenUrl);
+            // make API call with parameters and use promises to get response
+            fetch(givenUrl, requestOptions)
+            .then(response => response.text())
+            .then(result => console.log(result))
+            .catch(error => console.log('error', error));
+        }
+    </script>
+    <style>
+        .bd-placeholder-img {
+          font-size: 1.125rem;
+          text-anchor: middle;
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          -ms-user-select: none;
+          user-select: none;
+        }
+    
+        @media (min-width: 768px) {
+          .bd-placeholder-img-lg {
+            font-size: 3.5rem;
+          }
+        }
+    
+        body {
+          font-size: .875rem;
+        }
+    
+        .feather {
+          width: 16px;
+          height: 16px;
+          vertical-align: text-bottom;
+        }
+    
+        /* Sidebar*/
+    
+        .sidebar {
+          position: fixed;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          z-index: 100;
+          /* Behind the navbar */
+          padding: 48px 0 0;
+          /* Height of navbar */
+          box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+        }
+    
+        @media (max-width: 767.98px) {
+          .sidebar {
+            top: 5rem;
+          }
+        }
+    
+        .sidebar-sticky {
+          position: relative;
+          top: 0;
+          height: calc(100vh - 48px);
+          padding-top: .5rem;
+          overflow-x: hidden;
+          overflow-y: auto;
+          /* Scrollable contents if viewport is shorter than content. */
+        }
+    
+        .sidebar .nav-link {
+          font-weight: 500;
+          color: #333;
+        }
+    
+        .sidebar .nav-link .feather {
+          margin-right: 4px;
+          color: #727272;
+        }
+    
+        .sidebar .nav-link.active {
+          color: #007bff;
+        }
+    
+        .sidebar .nav-link:hover .feather,
+        .sidebar .nav-link.active .feather {
+          color: inherit;
+        }
+    
+        .sidebar-heading {
+          font-size: .75rem;
+          text-transform: uppercase;
+        }
+    
+        /*Navbar*/
+        .navbar-brand {
+          padding-top: .75rem;
+          padding-bottom: .75rem;
+          font-size: 1rem;
+          background-color: rgba(0, 0, 0, .25);
+          box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);
+        }
+    
+        .navbar .navbar-toggler {
+          top: .25rem;
+          right: 1rem;
+        }
+    
+        .navbar .form-control {
+          padding: .75rem 1rem;
+          border-width: 0;
+          border-radius: 0;
+        }
+    
+        .form-control-dark {
+          color: #fff;
+          background-color: rgba(255, 255, 255, .1);
+          border-color: rgba(255, 255, 255, .1);
+        }
+    
+        .form-control-dark:focus {
+          border-color: transparent;
+          box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
+        }
+    </style>
+    <style>
+        h1 {
+            color: #FFFFFF;
+            font-family: system-ui;
+            margin-left: 20px;
+            }
+        h2 {
+            color: #FFFFFF;
+            font-family: system-ui;
+            margin-left: 20px;
+            }
+        body {
+            background-color: #222629;
+            }
+        label {
+            color: #ffffff;
+            font-family: system-ui;
+            font-size: 20px;
+            margin-left: 20px;
+            margin-top: 20px;
+            }
+        button {
+            background-color: #54346a;
+            border-color: #0000005e;
+            color: #FFFFFF;
+            font-family: system-ui;
+            font-size: 20px;
+            font-weight: bold;
+            margin-left: 30px;
+            margin-top: 20px;
+            width: 140px;
+            height: 40px;
+            }
+        input {
+            color: #222629;
+            font-family: system-ui;
+            font-size: 20px;
+            margin-left: 10px;
+            margin-top: 20px;
+            width: 160px;
+            align-self: center;
+            }
+        table {
+            margin-top: 20px;
+        }
+        select{
+            font-weight: bold;
+            margin-left: 20px;
+            width: 140px;
+            height: 40px;
+            align-self: center;
+        }
+        
+        input{
+            margin-left: 20px;
+            width: 140px;
+            height: 40px;
+            align-self: center;
+        }
+
+        table,
+        th,
+        td {
+            border: 2px solid black;
+            border-collapse: collapse;
+        }
+        th,
+        td {
+            padding: 15px;
+        }
+        th {
+            text-align: left;
+            background-color: #531745;
+            color: #ffffff;
+        }
+        tr:nth-child(even) {
+            background-color: #341a41;
+            color: #ffffff;
+        }
+        tr:nth-child(odd) {
+            background-color: #9f61c1;
+            color: #000000;
+        }
+        tr:nth-child(0) {
+            background-color: #531745;
+            color: #ffffff;
+        }
+        tr:hover {
+            td
+            {
+            background-color: #909b9b66;
+            color: #ffffff;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+        <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="#">Detectronic R&D</a>
+        <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse"
+          data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search"> -->
+        <ul class="navbar-nav px-3">
+          <li class="nav-item text-nowrap">
+            <a class="nav-link" href="#">Sign out</a>
+          </li>
+        </ul>
+      </nav>
+    
+      <div class="container-fluid">
+        <div class="row">
+          <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+            <div class="position-sticky pt-3">
+              <ul class="nav flex-column">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="file:///C:/Users/DavidCunningham/VSCode/AWSAmplify/index.html">
+                    <span data-feather="home"></span>
+                    Dashboard
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="file:///C:/Users/DavidCunningham/VSCode/AWSAmplify/returns.html">
+                    <span data-feather="page"></span>
+                    Returns
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="file:///C:/Users/DavidCunningham/VSCode/AWSAmplify/testing.html">
+                    <span data-feather="page"></span>
+                    Testing
+                  </a>
+                </li>            
+              </ul>
+    
+              <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                <span>Saved reports</span>
+                <a class="link-secondary" href="#" aria-label="Add a new report">
+                  <span data-feather="plus-circle"></span>
+                </a>
+              </h6>
+              <ul class="nav flex-column mb-2">
+                <li class="nav-item">
+                  <a class="nav-link" href="#">
+                    <span data-feather="file-text"></span>
+                    Current month
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+    
+          <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+            <div
+              class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+              <h1 class="h2">Testing</h1>
+              <div class="btn-toolbar mb-2 mb-md-0">
+                <div class="btn-group mr-2">
+                  <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+                </div>
+                <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                  <span data-feather="calendar"></span>
+                  This week
+                </button>
+              </div>
+            </div>
+    
+            <!-- <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas> -->
+
+            
+            <h1>Get Device From Server!</h1>
+            <h2>Filtered Details</h2>
+            <form id="GetSelectForm">
+
+                <select id="Filter">
+                    <option value="SerialNumber">Serial Number</option>
+                    <option value="BatterySerial">Battery Serial</option>
+                    <option value="IMEI">IMEI</option>
+                    <option value="FailState">Fail State</option>
+                </select>
+                <input type="text" id="FilterInput">
+                <button type="button" onclick="getFilterAPI(Filter,FilterInput)">Get!</button>
+            </form> 
+    
+            <h2>Unit Details</h2>
+            <form id="TestForm">
+                <label>Serial:</label>
+                <input type="text" id="SerialNumber" value="DavidTest" width="100">
+                <label>Battery:</label>
+                <input type="text" id="BatterySerial">
+                <label>IMEI:</label>
+                <input type="text" id="IMEI">
+                <label>Test Result</label>
+                <select name="failState" id="FailState">
+                    <option value="Pass">Pass</option>
+                    <option value="Fail">Fail</option>
+                </select>
+                <label>Fail Reason:</label>
+                <select name="failReason" id="FailReason">
+                    <option value="N/A"></option>
+                    <option value="DistanceFail">Distance Fail</option>
+                    <option value="SensorFail">Sensor Fail</option>
+                    <option value="ForcedSendFail">Forced Send Fail</option>
+                    <option value="NANT">No Antenna</option>
+                    <option value="NO_REG">NO_REG</option>
+                    <option value="CACT_0">CACT_0</option>
+                </select>
+                <button type="button" onclick="postAPI(TestForm)">Post!</button>
+            </form>
+
+            <table id="UnList" width="900" height="1000"></table>
+
+          </main>
+        </div>
+      </div>   
+</body>
+</html>
