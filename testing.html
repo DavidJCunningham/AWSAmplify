@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="styles/darkly.css">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <title>R&D - Returns Form</title>
     <script>
         
@@ -18,7 +19,7 @@
     margin-bottom: 10px;
   }
 </style>
-<body>
+<body  onload="OnAppearing()">
   <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">Detectronic R&D</a>
@@ -50,7 +51,7 @@
     <div class="row">
       <main>
         <div class="col-md-auto ml-sm-auto col-lg-10 px-md-4">
-          <h1>Test Data</h1>
+          <h1  class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">Test Data</h1>
 
 
         <h2>Testing Upload</h2>
@@ -153,13 +154,16 @@
         </form>
       </div>
       <div class="pt-2 pb-2 mb-3 "></div>
-      
-        <table id="UnList" class="table table-bordered table-responsive table-hover table-sm table-dark " width="900" height="1000"></table>
+        <table id="UnList" class="table table-bordered table-responsive table-hover table-sm table-dark" width="900" height="1000"></table>
       </main>
     </div>
   </div>   
 </body>
 <script>
+  function OnAppearing()
+  {
+    TableHide("UnList"); console.log("Hide List Complete")
+  }
   // callAPI function that takes the base and exponent numbers as parameters
   var callAPI = (base,exponent)=>{
       // instantiate a headers object
@@ -321,6 +325,7 @@
               tempInt += 1;
           }
           list.appendChild(TRow);
+          TableShow("UnList");
       }
       
       // for (let column in parsedData[0]){
@@ -361,6 +366,13 @@
       .then(response => response.text())
       .then(result => console.log(result))
       .catch(error => console.log('error', error));
+  }  
+  function TableHide(TableVar){
+    $("#"+TableVar).hide("slow");
+    console.log("Hide "+TableVar+" List Complete")
+  }
+  function TableShow(TableVar){
+    $("#"+TableVar).show("slow");
   }
 </script>
 </html>
