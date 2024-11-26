@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="styles/darkly.css">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
     <title>R&D - Returns Form</title>
     <script>
       function openTab(evt, tabName) {
@@ -95,7 +96,10 @@
                   object[data.id]=(data.value);}
               }
       }
-      console.log(object);            
+      //HERE
+      //APIPost(object);
+    }
+    var APIPost = (object)=>{  
       // instantiate a headers object
       var myHeaders = new Headers();
       // add content type header to object
@@ -116,6 +120,8 @@
       .catch(error => window.alert('Post API Error', error));
   }  
   var getFilterAPI = (Filter,FilterInput)=>{
+    console.log(Filter);
+    console.log(FilterInput);
       if(FilterInput.value == "")
       {
           window.alert("Filter Field Missing Value");
@@ -127,6 +133,7 @@
       var url = "https://n6uac60or4.execute-api.eu-west-1.amazonaws.com/beta/query1"
       var query = encodeQuery(json);
       givenUrl = url +"?"+ query;
+      console.log("Given URL:")
       console.log(givenUrl);
       // add content type header to object
       const headers = {
@@ -236,7 +243,28 @@
       function TableShow(TableVar){
         $("#"+TableVar).show("slow");
       }
-</script>    
+  function CSVParse(line){
+      let object = {};
+      var skipHeader = false;
+      console.log(line);
+      var i =0;
+      for (var data of line) {
+        if (data.value == "Serial Number"){skipHeader = true;}
+        if(!skipHeader)
+        {
+          object[i]=data;
+        }
+        i++;
+      }
+      if (object != {}){
+        //HERE
+        //APIPost(object);
+        //console.log(object);
+        object = {};
+      }
+      //console.log("Line Parse Complete")
+  }
+</script>
 </head>
 <style>
   textarea 
@@ -396,8 +424,7 @@
         <div class="col-md-auto ml-sm-auto col-lg-10 px-md-4">
           <h1  class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">Test Data</h1>
 
-
-        <h2>Testing Upload</h2>
+        <h2>Testing Manual Entry</h2>
         <form id="TestForm">
           <div class="row">
             <div class="col-md-3"> 
@@ -464,15 +491,20 @@
               <input type="text" class="form-control" id="CompetentPerson">
               <label for="PointOfOrigin">Point Of Origin:</label>
               <input type="text" class="form-control" id="PointOfOrigin">
-            </div>              
+            </div>
           </div>
           <label for="Comments" class="form-label">Comments</label>
           <textarea class="form-control col-md-9" id="Comments" rows="4"></textarea>
           <button id="submitUnitDetails" type="button" class="btn btn-primary form-control col-md-9" onclick="postAPI(TestForm)">Submit!</button>
         </form>
         <div class="pt-2 pb-2 mb-3 "></div>
-
-
+        
+        
+        <h2>Testing Upload</h2>
+        <form>
+          <input type="file" id="fileInput" accept=".csv" />
+          <pre id="output"></pre>
+      </form>
         <h2>Get Unit Details</h2>
         <form id="TestForm">
           <div class="row">
@@ -503,4 +535,24 @@
     </div>
   </div>   
 </body>
+<script>
+  document.getElementById('fileInput').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+              Papa.parse(file, {
+                  worker: true,
+                  step: function(results) {
+                    console.log('Row:', results);
+                    CSVParse(results.data)
+                  },
+                  complete: function() {
+                      console.log('CSV file successfully processed');
+                  },
+                  error: function(error) {
+                      console.error('Error parsing CSV:', error);
+                  }
+              });
+            }
+        });
+</script>
 </html>
