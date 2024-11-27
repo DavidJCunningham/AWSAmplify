@@ -247,20 +247,19 @@
       let object = {};
       var skipHeader = false;
       var i =0;
-      for (var data of line) {
+      for (var data of line)
+      {
         object[i]=data;
         i++;
       }
       if (Object.keys(object)[0] == "0")
-      { 
-        if (object["0"] !== "" || object["0"] !== "Serial Number"){
-          console.log(type(object["0"]))
-          //APIPost(object);
-          object = {};
-          console.log("Line Parse Complete")
+      {
+        if (object["0"] == "" && object["0"] == "Serial Number"){return;}
+        console.log(type(object["0"]))
+        APIPost(object);
+        console.log("Line Parse Complete")
       }
-    } 
-  }
+    }
 </script>
 </head>
 <style>
