@@ -542,10 +542,10 @@
                     CSVParse(results.data)
                   },
                   complete: function() {
-                      console.log('CSV file successfully processed');
+                      window.alert('CSV file successfully processed');
                   },
                   error: function(error) {
-                      console.error('Error parsing CSV:', error);
+                      window.alert('Error parsing CSV:', error);
                   }
               });
             }
