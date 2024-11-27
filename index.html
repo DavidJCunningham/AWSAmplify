@@ -254,7 +254,8 @@
       }
       if (Object.keys(object)[0] == "0")
       {
-        if ((object["0"] == "") && (object["0"] == "Serial Number")){return;}
+        if ((object["0"] == "") && (object["0"] == "Serial Number")){ console.log("Skip Line"); return;}
+        console.log(object);
         APIPost(object);
         console.log("Line Parse Complete");
       }
