@@ -256,12 +256,15 @@
         skipHeader = false;
         i++;
       }
-      console.log(object)
-      if (object != [""]){
-        APIPost(object);
-        object = {};
+      if (Object.keys(object)[0] == "0")
+      { 
+        if (object["0"] != "" ){
+          console.log(object)
+          //APIPost(object);
+          object = {};
+          console.log("Line Parse Complete")
       }
-      console.log("Line Parse Complete")
+    } 
   }
 </script>
 </head>
