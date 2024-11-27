@@ -105,7 +105,6 @@
       // add content type header to object
       var obj = JSON.stringify(object);
       myHeaders.append("Content-Type", "application/json");
-      myHeaders.append("Access-Control-Allow-Origin", "https://main.d23gwgub2u9aya.amplifyapp.com/");
       // create a JSON object with parameters for API call and store in a variable
       var requestOptions = {
           method: 'POST',
@@ -261,12 +260,10 @@
       }
       if (object != [""]){
         object[i]="Production";
-        //HERE
         APIPost(object);
-        //console.log(object);
         object = {};
       }
-      //console.log("Line Parse Complete")
+      console.log("Line Parse Complete")
   }
 </script>
 </head>
