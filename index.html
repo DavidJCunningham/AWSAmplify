@@ -112,7 +112,6 @@
           body: obj,
           redirect: 'follow'
       };
-      console.log(requestOptions);
       var url = "https://n6uac60or4.execute-api.eu-west-1.amazonaws.com/beta/query1"
       // make API call with parameters and use promises to get response
       fetch(url, requestOptions)
@@ -259,7 +258,6 @@
         i++;
       }
       if (object != [""]){
-        object[i]="Production";
         APIPost(object);
         object = {};
       }
