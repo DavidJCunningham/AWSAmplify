@@ -249,11 +249,12 @@
       console.log(line);
       var i =0;
       for (var data of line) {
-        if (data.value == "Serial Number"){skipHeader = true;}
+        if (data.value == "Serial Number" || data.value == ""){skipHeader = true;}
         if(!skipHeader)
         {
           object[i]=data;
         }
+        skipHeader = false;
         i++;
       }
       if (object != {}){
