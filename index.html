@@ -259,8 +259,8 @@
         skipHeader = false;
         i++;
       }
-      object[i]="Production";
-      if (object != {}){
+      if (object != [""]){
+        object[i]="Production";
         //HERE
         APIPost(object);
         //console.log(object);
