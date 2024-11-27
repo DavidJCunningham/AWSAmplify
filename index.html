@@ -246,7 +246,6 @@
   function CSVParse(line){
       let object = {};
       var skipHeader = false;
-      console.log(line);
       var i =0;
       for (var data of line) {
         if (data.value == "Serial Number" || data.value == ""){skipHeader = true;}
@@ -257,6 +256,7 @@
         skipHeader = false;
         i++;
       }
+      console.log(object)
       if (object != [""]){
         APIPost(object);
         object = {};
@@ -541,7 +541,6 @@
               Papa.parse(file, {
                   worker: true,
                   step: function(results) {
-                    console.log('Row:', results);
                     CSVParse(results.data)
                   },
                   complete: function() {
