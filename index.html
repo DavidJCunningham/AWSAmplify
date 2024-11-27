@@ -105,6 +105,7 @@
       // add content type header to object
       var obj = JSON.stringify(object);
       myHeaders.append("Content-Type", "application/json");
+      myHeaders.append("Access-Control-Allow-Origin", "*");
       // create a JSON object with parameters for API call and store in a variable
       var requestOptions = {
           method: 'POST',
