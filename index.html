@@ -248,17 +248,12 @@
       var skipHeader = false;
       var i =0;
       for (var data of line) {
-        if (data.value == "Serial Number" || data.value == ""){skipHeader = true;}
-        if(!skipHeader)
-        {
-          object[i]=data;
-        }
-        skipHeader = false;
+        object[i]=data;
         i++;
       }
       if (Object.keys(object)[0] == "0")
       { 
-        if (object["0"] != "" ){
+        if (object["0"] != "" || object["0"] != "Serial Number"){
           console.log(object)
           //APIPost(object);
           object = {};
