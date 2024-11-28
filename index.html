@@ -116,7 +116,7 @@
       // make API call with parameters and use promises to get response
       fetch(url, requestOptions)
       .then(response => response.text())
-      .then(result => alert(JSON.parse(result).body))
+      .then(result => console.log(JSON.parse(result).body))
       .catch(error => console.log('Post API Error'+ error));
   }  
   var getFilterAPI = (Filter,FilterInput)=>{
@@ -546,7 +546,8 @@
                   error: function(error) {
                       window.alert('Error parsing CSV:', error);
                   }
-              });
+                }
+              );
             }
         });
 </script>
