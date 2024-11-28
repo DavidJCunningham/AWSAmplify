@@ -83,6 +83,7 @@
       let object = {};
       var ATEXCompliant = false;
       for (var data of form.elements) {
+        console.log(data);
           if(data.id == "ATEX")
           {
               if(data.value=="Pass")
