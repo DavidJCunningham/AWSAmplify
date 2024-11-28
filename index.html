@@ -83,7 +83,6 @@
       console.log("Form Parse Start")
       let object = {};
       var ATEXCompliant = false;
-      console.log(form.elements);
       for (var data of form.elements) 
       {
         console.log(data.id, data.value);
@@ -108,8 +107,43 @@
           object[data.id]=(data.value);
         }
       }
+      //Process the Data to fit the model 
+      formattedObject = FormFormatter(object)
+      //Send to API for adding to database.
+      TestAPIPost(formattedObject);
+    }
+    var FormFormatter = (object)=>{
       console.log(object);
-      //TestAPIPost(object);
+      formatObject= {};
+      formatObject[0] = object.SerialNumber;
+      formatObject[1] = object.IMEI;
+      formatObject[2] = object.DateOfTest;
+      formatObject[3] = object.PrimaryDistance;
+      formatObject[4] = object.SecondaryDistance;
+      formatObject[5] = object.TertiaryDistance;
+      formatObject[6] = object.ModbusOffset;
+      formatObject[7] = object.BatterySerial;
+      formatObject[8] = object.BatteryVoltage;
+      formatObject[9] = object.ModemVersion;
+      formatObject[10] = object.FirmwareVersion;
+      formatObject[11] = object.DeviceName;
+      formatObject[12] = object.LastAttemptedSend;
+      formatObject[13] = object.LastSuccessfulSend;
+      formatObject[14] = object.Coordinates;
+      formatObject[15] = object.MobileNetwork;
+      formatObject[16] = object.ConnectionType;
+      formatObject[17] = object.RSSI;
+      formatObject[18] = object.WS46Plus;
+      formatObject[19] = object.WS46Hash;
+      formatObject[20] = object.Bootstrapped;
+      formatObject[21] = object.Registered;
+      formatObject[22] = object.Exec;
+      formatObject[23] = object.ATEX;
+      formatObject[24] = object.FailReason;
+      formatObject[25] = "Abdul Rahman";
+      formatObject[26] = object.CompetentPerson;
+      formatObject[27] = object.PointOfOrigin;
+      return formatObject;
     }
     var TestAPIPost = (object)=>{  
       // instantiate a headers object
@@ -376,7 +410,7 @@
                 <label for="Tags">Tag(s):</label>
                 <input type="text" class="form-control" id="Tags">
                 <label for="DateReturned">Date Returned:</label>
-                <input type="datetime" class="form-control" id="DateReturned">
+                <input type="datetime-local" class="form-control" id="DateReturned">
                 <label for="ReturnReason">Reason For Return:</label>
                 <input type="text" class="form-control" id="ReturnReason">
                 <label for="Customer">Customer:</label>
@@ -451,13 +485,13 @@
               <label for="WS46Plus">WS46+ Settings:</label>
               <input type="text" class="form-control" id="WS46Plus">
               <label for="Bootstrapped">Bootstrap Time:</label>
-              <input type="datetime" class="form-control" id="Bootstrapped">
+              <input type="datetime-local" class="form-control" id="Bootstrapped">
               <label for="ATEX">Pass/Fail: *</label>
               <select class="form-control" id="ATEX">
                 <option class="option" value="NONE"></option>
                 <option class="option" value="PASS">Pass</option>
                 <option class="option" value="FAIL">Fail</option>
-              </select>              
+              </select>
             </div>
             <div class="col-md-3">  
               <label for="PrimaryDistance">First Distance:</label>
@@ -473,7 +507,13 @@
               <label for="FirmwareVersion">Firmware Version:</label>
               <input type="text" class="form-control" id="FirmwareVersion">
               <label for="WS46Hash">WS46# Settings:</label>
-              <input type="text" class="form-control" id="WS46Hash">
+              <select class="form-control" id="WS46Hash">
+                <option class="option" value="NONE"></option>
+                <option class="option" value="CAT-M1 Only (0)">CAT-M1 Only (0)</option>
+                <option class="option" value="NB-IoT Only (1)">NB-IoT Only (1)</option>
+                <option class="option" value="CAT-M1 Preferred (2)">CAT-M1 Only (2)</option>
+                <option class="option" value="NB-IoT Preferred (3)">NB-IoT Preferred (3)</option>
+              </select>
               <label for="Registered">Registration Time:</label>
               <input type="datetime-local" class="form-control" id="Registered">
               <label for="FailReason">Fail Reason:</label>
@@ -489,7 +529,12 @@
               <label for="MobileNetwork">Mobile Network:</label>
               <input class="form-control" id="MobileNetwork">
               <label for="ConnectionType">Connection Type:</label>
-              <input type="text" class="form-control" id="ConnectionType">
+              <select class="form-control" id="ConnectionType">
+                <option class="option" value="NONE"></option>
+                <option class="option" value="CAT-M1">CAT-M1</option>
+                <option class="option" value="GSM">GSM</option>
+                <option class="option" value="NB-IOT">NB-IOT</option>
+              </select>
               <label for="RSSI">RSSI:</label>
               <input type="number" class="form-control" id="RSSI">
               <label for="Exec">Exec Time:</label>
@@ -497,13 +542,11 @@
               <label for="CompetentPerson">Competent Person:</label>
               <input type="text" class="form-control" id="CompetentPerson">
               <label for="PointOfOrigin">Point Of Origin:</label>
-              <input type="text" class="form-control" id="PointOfOrigin">
+              <input type="text" class="form-control" placeholder="Production" id="PointOfOrigin">
             </div>
           </div>
-          <label for="Comments" class="form-label">Comments</label>
-          <textarea class="form-control col-md-9" id="Comments" rows="4"></textarea>
-          <button id="submitTestUnitDetails" type="button" class="btn btn-primary form-control col-md-9" onclick="TestPostAPI(TestForm)">Submit!</button>
         </form>
+        <button id="submitTestUnitDetails" type="button" class="btn btn-primary form-control mt-4 col-md-9" onclick="TestPostAPI(TestForm)">Submit!</button>
         <div class="pt-2 pb-2 mb-3 "></div>
         
         
