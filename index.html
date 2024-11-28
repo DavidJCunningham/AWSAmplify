@@ -7,6 +7,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+
     <title>R&D - Returns Form</title>
     <script>
       function openTab(evt, tabName) {
@@ -82,34 +83,32 @@
       console.log("Form Parse Start")
       let object = {};
       var ATEXCompliant = false;
-      for (var data of form.elements) {
-        console.log(data);
-          if(data.id == "ATEX")
+      console.log(form.elements);
+      for (var data of form.elements) 
+      {
+        console.log(data.id, data.value);
+        if(data.id == "ATEX")
+        {
+          if(data.value=="PASS")
           {
-              if(data.value=="Pass")
-              {
-                object[data.id]= false;
-                ATEXCompliant = true;
-              }
-              if(data.value=="Fail")
-              {
-                object[data.id]= true;
-                ATEXCompliant = true;
-              }
+            object[data.id]= false;
           }
-          else{
-          if(data.id != '' && data.value != ''){
-            object[data.id]=(data.value);
+          if(data.value=="FAIL")
+          {
+            object[data.id]= true;
+          }
+          if(data.value=="NONE")
+          {
+            window.alert("Mandatory Fields Missing")
+            return;
           }
         }
+        else
+        {
+          object[data.id]=(data.value);
+        }
       }
-      //HERE
-      console.log(object)
-      if(!ATEXCompliant)
-      {
-        window.alert("Mandatory Fields Missing")
-        return;
-      }
+      console.log(object);
       //TestAPIPost(object);
     }
     var TestAPIPost = (object)=>{  
@@ -351,7 +350,7 @@
           </div>
           
           <h2>Unit Details</h2>
-          <form id="TestForm">
+          <form id="ReturnsForm">
             <div class="row">
               <div class="col-md-3"> 
                 <label for="TestEngineer">Test Engineer:</label>
@@ -420,7 +419,7 @@
             </div>
             <label for="Comments" class="form-label">Comments</label>
             <textarea class="form-control col-md-9" id="Comments" rows="4"></textarea>
-            <button id="submitUnitDetails" type="button" class="btn btn-primary form-control col-md-9" onclick="TestPostAPI(TestForm)">Submit!</button>
+            <button id="submitReturnsUnitDetails" type="button" class="btn btn-primary form-control col-md-9" onclick="TestPostAPI(ReturnsForm)">Submit!</button>
           </form>
           <table id="UnListReturns" width="900" height="1000"></table>
         </main>
@@ -436,7 +435,7 @@
         <h2>Testing Manual Entry</h2>
         <form id="TestForm">
           <div class="row">
-            <div class="col-md-3"> 
+            <div class="col-md-3">
               <label for="SerialNumber">Serial Number:</label>
               <input type="number" class="form-control" id="SerialNumber">
               <label for="IMEI">IMEI:</label>
@@ -448,18 +447,17 @@
               <label for="DeviceName">Device Name:</label>
               <input type="text" class="form-control" id="DeviceName">
               <label for="DateOfTest">Date of Test:</label>
-              <input type="datetime" class="form-control" id="DateOfTest">
+              <input type="datetime-local" class="form-control" id="DateOfTest">
               <label for="WS46Plus">WS46+ Settings:</label>
               <input type="text" class="form-control" id="WS46Plus">
               <label for="Bootstrapped">Bootstrap Time:</label>
               <input type="datetime" class="form-control" id="Bootstrapped">
-              <label for="ATEX">Pass/Fail:</label>
+              <label for="ATEX">Pass/Fail: *</label>
               <select class="form-control" id="ATEX">
                 <option class="option" value="NONE"></option>
                 <option class="option" value="PASS">Pass</option>
                 <option class="option" value="FAIL">Fail</option>
-              </select>
-              
+              </select>              
             </div>
             <div class="col-md-3">  
               <label for="PrimaryDistance">First Distance:</label>
@@ -477,15 +475,15 @@
               <label for="WS46Hash">WS46# Settings:</label>
               <input type="text" class="form-control" id="WS46Hash">
               <label for="Registered">Registration Time:</label>
-              <input type="datetime" class="form-control" id="Registered">
+              <input type="datetime-local" class="form-control" id="Registered">
               <label for="FailReason">Fail Reason:</label>
               <input type="text" class="form-control" id="FailReason">
             </div>
             <div class="col-md-3">  
-              <label for="LastAttemptedSend">Last Attempted Send:</label>
-              <input type="datetime" class="form-control" id="LastAttemptedSend">
+              <label for="LastAttemptedSend" class="form-label">Last Attempted Send:</label>
+              <input type="datetime-local" id="LastAttemptedSend" class="form-control">
               <label for="LastSuccessfulSend">Last Successful Send:</label>
-              <input type="datetime" class="form-control" id="LastSuccessfulSend">
+              <input type="datetime-local" id="LastSuccessfulSend" class="form-control">
               <label for="Coordinates">Coordinates:</label>
               <input type="text" class="form-control" id="Coordinates">
               <label for="MobileNetwork">Mobile Network:</label>
@@ -493,9 +491,9 @@
               <label for="ConnectionType">Connection Type:</label>
               <input type="text" class="form-control" id="ConnectionType">
               <label for="RSSI">RSSI:</label>
-              <input class="form-control" id="RSSI">
+              <input type="number" class="form-control" id="RSSI">
               <label for="Exec">Exec Time:</label>
-              <input type="datetime" class="form-control" id="Exec">
+              <input type="datetime-local" class="form-control" id="Exec">
               <label for="CompetentPerson">Competent Person:</label>
               <input type="text" class="form-control" id="CompetentPerson">
               <label for="PointOfOrigin">Point Of Origin:</label>
@@ -504,7 +502,7 @@
           </div>
           <label for="Comments" class="form-label">Comments</label>
           <textarea class="form-control col-md-9" id="Comments" rows="4"></textarea>
-          <button id="submitUnitDetails" type="button" class="btn btn-primary form-control col-md-9" onclick="TestPostAPI(TestForm)">Submit!</button>
+          <button id="submitTestUnitDetails" type="button" class="btn btn-primary form-control col-md-9" onclick="TestPostAPI(TestForm)">Submit!</button>
         </form>
         <div class="pt-2 pb-2 mb-3 "></div>
         
@@ -531,8 +529,8 @@
               <input type="text" id="FilterInput" class="form-control">
             </div>
             <div class="col-md-3">
-              <label for="submitUnitDetails" class="form-label">Get Data:</label>
-              <button id="submitUnitDetails" type="button" class="btn btn-primary form-control bottom" onclick="getFilterAPI(Filter,FilterInput)">Get!</button>
+              <label for="getTestDetailsButton" class="form-label">Get Data:</label>
+              <button id="getTestDetailsButton" type="button" class="btn btn-primary form-control bottom" onclick="getFilterAPI(Filter,FilterInput)">Get!</button>
             </div>
           </div>
         </form>
