@@ -78,28 +78,35 @@
       .then(result => alert(JSON.parse(result).body))
       .catch(error => window.alert('General API Error', error));
   }
-  var postAPI = (form)=>{
+  var TestPostAPI = (form)=>{
       console.log("Form Parse Start")
       let object = {};
-      var FailEnabled = false;
+      var ATEXCompliant = false;
       for (var data of form.elements) {
-          if(data.id == "FailState")
+          if(data.id == "ATEX")
           {
               if(data.value=="Pass")
-              {FailEnabled = false;}
-              if(data.value=="Fail")
-              {FailEnabled = true;}
-          }
-          if(data.id != '' || data.value != ''){
-              if(data.id!='FailReason' || (data.id=='FailReason' && FailEnabled)){
-                  console.log(data.value, FailEnabled);
-                  object[data.id]=(data.value);}
+              {
+                object[data.id]= false;
+                ATEXCompliant = true;
               }
+              if(data.value=="Fail")
+              {
+                object[data.id]= true;
+                ATEXCompliant = true;
+              }
+          }
+          else{
+          if(data.id != '' && data.value != ''){
+            object[data.id]=(data.value);
+          }
+        }
       }
       //HERE
-      APIPost(object);
+      console.log(object)
+      //TestAPIPost(object);
     }
-    var APIPost = (object)=>{  
+    var TestAPIPost = (object)=>{  
       // instantiate a headers object
       var myHeaders = new Headers();
       // add content type header to object
@@ -256,7 +263,7 @@
       {
         if ((String(object["0"]) == "") || (String(object["0"]) == "Serial Number")){ console.log("Skip Line"); return;}
         console.log(object);
-        APIPost(object);
+        TestAPIPost(object);
         console.log("Line Parse Complete");
       }
     }
@@ -407,7 +414,7 @@
             </div>
             <label for="Comments" class="form-label">Comments</label>
             <textarea class="form-control col-md-9" id="Comments" rows="4"></textarea>
-            <button id="submitUnitDetails" type="button" class="btn btn-primary form-control col-md-9" onclick="postAPI(TestForm)">Submit!</button>
+            <button id="submitUnitDetails" type="button" class="btn btn-primary form-control col-md-9" onclick="TestPostAPI(TestForm)">Submit!</button>
           </form>
           <table id="UnListReturns" width="900" height="1000"></table>
         </main>
@@ -491,7 +498,7 @@
           </div>
           <label for="Comments" class="form-label">Comments</label>
           <textarea class="form-control col-md-9" id="Comments" rows="4"></textarea>
-          <button id="submitUnitDetails" type="button" class="btn btn-primary form-control col-md-9" onclick="postAPI(TestForm)">Submit!</button>
+          <button id="submitUnitDetails" type="button" class="btn btn-primary form-control col-md-9" onclick="TestPostAPI(TestForm)">Submit!</button>
         </form>
         <div class="pt-2 pb-2 mb-3 "></div>
         
