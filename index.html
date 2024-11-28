@@ -104,6 +104,11 @@
       }
       //HERE
       console.log(object)
+      if(!ATEXCompliant)
+      {
+        window.alert("Mandatory Fields Missing")
+        return;
+      }
       //TestAPIPost(object);
     }
     var TestAPIPost = (object)=>{  
