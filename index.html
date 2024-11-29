@@ -86,26 +86,39 @@
       for (var data of form.elements) 
       {
         console.log(data.id, data.value);
-        if(data.id == "ATEX")
+        if(data.id == "SensorTest")
         {
-          if(data.value=="PASS")
-          {
-            object[data.id]= false;
-          }
-          if(data.value=="FAIL")
-          {
-            object[data.id]= true;
-          }
           if(data.value=="NONE")
           {
             window.alert("Mandatory Fields Missing")
             return;
           }
         }
-        else
+        if(data.id == "CommsTest")
         {
-          object[data.id]=(data.value);
+          if(data.value=="NONE")
+          {
+            window.alert("Mandatory Fields Missing")
+            return;
+          }
         }
+        if(data.id == "Status")
+        {
+          if(data.value=="NONE")
+          {
+            window.alert("Mandatory Fields Missing")
+            return;
+          }
+        }
+        if(data.id == "ATEX")
+        {
+          if(data.value=="NONE")
+          {
+            window.alert("Mandatory Fields Missing")
+            return;
+          }
+        }
+        object[data.id]=(data.value);
       }
       //Process the Data to fit the model 
       formattedObject = FormFormatter(object)
