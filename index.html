@@ -319,6 +319,55 @@
         console.log("Line Parse Complete");
       }
     }
+  function ProductSelect(ProductSelect){
+    ProductVariant = document.getElementById("ProductVariant");
+    ProductCode = document.getElementById("ProductCode");
+    if(ProductSelect.value == "LIDoTT SMART V1")
+    {
+      switch(ProductVariant.value) {
+        default:
+          ProductCode.value = "P131-1";
+      }
+    }
+    if(ProductSelect.value == "LIDoTT SMART V2")
+    {
+      switch(ProductVariant.value) {
+        case "A":
+          ProductCode.value = "P131-SRT-A-2";
+          break;
+        case "B":
+          ProductCode.value = "P131-SRT-B-2";
+          break;
+        case "C":
+          ProductCode.value = "P131-SRT-C-2";
+          break;
+        default:
+          ProductCode.value = "Invalid Product";
+      }
+    }
+    if(ProductSelect.value == "LIDoTT ALARM")
+    {
+      switch(ProductVariant.value) {
+        case "A":
+          ProductCode.value = "P134-2-A";
+          break;
+        case "B":
+          ProductCode.value = "P134-2-B";
+          break;
+        case "C":
+          ProductCode.value = "P134-2-C";
+          break;
+        case "D":
+          ProductCode.value = "P134-2-D";
+          break;
+        default:
+          ProductCode.value = "Invalid Product";
+      }
+    }
+    if(ProductSelect.value == "NONE"){
+      document.getElementById("ProductCode").value = "Invalid Product";
+    }
+  }
 </script>
 </head>
 <style>
@@ -400,12 +449,10 @@
           <form id="ReturnsForm">
             <div class="row">
               <div class="col-md-3"> 
-                <label for="TestEngineer">Test Engineer:</label>
-                <input type="text" class="form-control" id="TestEngineer">
-                <label for="History">Device History:</label>
-                <input type="text" class="form-control" id="History">
                 <label for="SerialNumber">Serial Number:</label>
                 <input type="text" class="form-control" id="SerialNumber">
+                <label for="History">Device History:</label>
+                <input type="text" class="form-control" id="History">
                 <label for="IMEI">IMEI:</label>
                 <input type="text" class="form-control" id="IMEI">
                 <label for="BatterySerial">Battery Serial:</label>
@@ -414,18 +461,31 @@
                 <input type="text" class="form-control" id="BatteryVoltage">
                 <label>Fault Category:</label>
                 <input type="text" class="form-control" id="FaultCategory">
+                <label for="ReturnReason">Reason For Return:</label>
+                <input type="text" class="form-control" id="ReturnReason">
               </div>
-              <div class="col-md-3">  
+              <div class="col-md-3">
                 <label for="Product">Product:</label>
-                <input type="text" class="form-control" id="Product">
+                <select class="form-control" id="Product" onchange=ProductSelect(Product)>
+                  <option value="NONE"></option>
+                  <option value="LIDoTT ALARM">Alarm</option>
+                  <option value="LIDoTT SMART V1">Smart V1</option>
+                  <option value="LIDoTT SMART V2">Smart V2</option>
+                </select>
+                <label for="ProductVariant">Product:</label>
+                <select class="form-control" id="ProductVariant" onchange=ProductSelect(Product)>
+                  <option value="NONE"></option>
+                  <option value="A">A Variant</option>
+                  <option value="B">B Variant</option>
+                  <option value="C">C Variant</option>
+                  <option value="D">D Variant</option>
+                </select>
                 <label for="ProductCode">Product Code:</label>
                 <input type="text" class="form-control" id="ProductCode">
                 <label for="Tags">Tag(s):</label>
                 <input type="text" class="form-control" id="Tags">
                 <label for="DateReturned">Date Returned:</label>
                 <input type="datetime-local" class="form-control" id="DateReturned">
-                <label for="ReturnReason">Reason For Return:</label>
-                <input type="text" class="form-control" id="ReturnReason">
                 <label for="Customer">Customer:</label>
                 <input type="text" class="form-control" id="Customer">
                 <label for="FixApplied">Fix Applied:</label>
