@@ -452,17 +452,47 @@
                 <label for="SerialNumber">Serial Number:</label>
                 <input type="text" class="form-control" id="SerialNumber">
                 <label for="History">Device History:</label>
-                <input type="text" class="form-control" id="History">
+                <select class="form-control" id="History">
+                  <option value="NONE"></option>
+                  <option value="CUSTOMER">Customer</option>
+                  <option value="CEM Return">CEM Return</option>
+                  <option value="Other">Other (See Comments)</option>
+                </select>
                 <label for="IMEI">IMEI:</label>
                 <input type="text" class="form-control" id="IMEI">
                 <label for="BatterySerial">Battery Serial:</label>
                 <input type="text" class="form-control" id="BatterySerial">
                 <label for="BatteryVoltage">Battery Voltage:</label>
                 <input type="text" class="form-control" id="BatteryVoltage">
-                <label>Fault Category:</label>
-                <input type="text" class="form-control" id="FaultCategory">
+                <label for="FaultCategory">Fault Category:</label>
+                <select class="form-control" id="FaultCategory">
+                  <option value="NONE"></option>
+                  <option value="ANTENNA ISSUE">Antenna</option>
+                  <option value="BATTERY ISSUE">Battery</option>
+                  <option value="CONFIG ISSUE">Config</option>
+                  <option value="DAMAGED">Damaged</option>
+                  <option value="DISTANCE MEASUREMENT">Distance</option>
+                  <option value="HLC">HLC</option>
+                  <option value="MODEM ISSUE">Modem</option>
+                  <option value="NFF">No Fault Found</option>
+                  <option value="SETTINGS ISSUE">Settings</option>
+                  <option value="SIM ISSUE">Sim</option>
+                  <option value="TELIT">Telit</option>
+                  <option value="WEAR AND TEAR">Wear and Tear</option>
+                  <option value="WONT WAKE">Won't Wake</option>
+                </select>
                 <label for="ReturnReason">Reason For Return:</label>
-                <input type="text" class="form-control" id="ReturnReason">
+                <select class="form-control" id="ReturnReason">
+                  <option value="NONE"></option>
+                  <option value="No Reason Given">No Reason Given</option>
+                  <option value="Connection Issues">Connection Issues</option>
+                  <option value="Damaged">Damaged</option>
+                  <option value="Distance Measurement Issues">Distance Measurement Issues</option>
+                  <option value="Low Voltage">Low Voltage</option>
+                  <option value="Swapped">Swapped</option>
+                  <option value="Wire Broken">Wire Broken</option>
+                  <option value="Won't Wake Up">Won't Wake Up</option>
+                </select>
               </div>
               <div class="col-md-3">
                 <label for="Product">Product:</label>
@@ -489,7 +519,19 @@
                 <label for="Customer">Customer:</label>
                 <input type="text" class="form-control" id="Customer">
                 <label for="FixApplied">Fix Applied:</label>
-                <input type="text" class="form-control" id="FixApplied">
+                <select class="form-control" id="FixApplied">
+                  <option value="NONE"></option>
+                  <option value="NFF">No Fault Found</option>
+                  <option value="CONFIG UPDATE">Config Update</option>
+                  <option value="FIRMWARE UPDATE">Firmware Update</option>
+                  <option value="MODEM UPDATE">Modem Update</option>
+                  <option value="MODEM FIX">Modem Fix</option>
+                  <option value="REPLACED ANTENNA">Replaced Antenna</option>
+                  <option value="RESET PG">Reset PG</option>
+                  <option value="TELIT">Telit</option>
+                  <option value="TIGHTENED ANTENNA">Tightened Antenna</option>
+                  <option value="UNBOOTSTRAPPED">Un/Re-Bootstrapped</option>
+                </select>
               </div>
               <div class="col-md-3">  
                 <label for="VisualInspection">Visual Inspection:</label>
