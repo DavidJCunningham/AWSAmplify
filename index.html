@@ -526,7 +526,8 @@
             </div>
             <label for="Comments" class="form-label">Comments</label>
             <textarea class="form-control col-md-9" id="Comments" rows="4"></textarea>
-            <button id="submitReturnsUnitDetails" type="button" class="btn btn-primary form-control col-md-9" onclick="TestPostAPI(ReturnsForm)">Submit!</button>
+            <button id="submitReturnsUnitDetails" type="button" class="btn btn-primary form-control col-md-6" onclick="TestPostAPI(ReturnsForm); ReturnsForm.reset(); this.blur();">Submit</button>
+            <button id="clearReturnsForm" type="button" class="btn btn-primary form-control col-md-3" onclick="ReturnsForm.reset(); this.blur();">Clear Form</button>
           </form>
           <table id="UnListReturns" width="900" height="1000"></table>
         </main>
@@ -619,7 +620,8 @@
             </div>
           </div>
         </form>
-        <button id="submitTestUnitDetails" type="button" class="btn btn-primary form-control mt-4 col-md-9" onclick="TestPostAPI(TestForm)">Submit!</button>
+        <button id="submitTestUnitDetails" type="button" class="btn btn-primary form-control mt-4 col-md-6" onclick="TestPostAPI(TestForm); TestForm.reset(); this.blur()">Submit</button>
+        <button id="clearTestingButton" type="button" class="btn btn-primary form-control mt-4 col-md-3" onclick="TestForm.reset(); this.blur()">Clear Form</button>
         <div class="pt-2 pb-2 mb-3 "></div>
         
         
@@ -646,7 +648,7 @@
             </div>
             <div class="col-md-3">
               <label for="getTestDetailsButton" class="form-label">Get Data:</label>
-              <button id="getTestDetailsButton" type="button" class="btn btn-primary form-control bottom" onclick="getFilterAPI(Filter,FilterInput)">Get!</button>
+              <button id="getTestDetailsButton" type="button" class="btn btn-primary form-control bottom" onclick="getFilterAPI(Filter,FilterInput)">Get Results</button>
             </div>
           </div>
         </form>
