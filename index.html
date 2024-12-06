@@ -79,7 +79,15 @@
       .then(result => alert(JSON.parse(result).body))
       .catch(error => window.alert('General API Error', error));
   }
-  var TestPostAPI = (form)=>{
+  var TestingAPIFormat = (form)=>{
+    let Database = "testing";
+    TestPostAPI(form,Database);
+  }
+  var ReturnsAPIFormat = (form)=>{
+    let Database = "returns";
+    TestPostAPI(form,Database);
+  }
+  var TestPostAPI = (form,Database)=>{
       console.log("Form Parse Start")
       let object = {};
       var ATEXCompliant = false;
@@ -120,13 +128,14 @@
         }
         object[data.id]=(data.value);
       }
+      if(Database == "testing"){
       //Process the Data to fit the model 
-      formattedObject = FormFormatter(object)
+      formattedObject = {"Parameters":TestFormatter(object),"Database":Database}}
+      if(Database == "returns"){formattedObject = {"Parameters":ReturnFormatter(object),"Database":Database}}
       //Send to API for adding to database.
       TestAPIPost(formattedObject);
     }
-    var FormFormatter = (object)=>{
-      console.log(object);
+    var TestFormatter = (object)=>{
       formatObject= {};
       formatObject[0] = object.SerialNumber;
       formatObject[1] = object.IMEI;
@@ -158,11 +167,42 @@
       formatObject[27] = object.PointOfOrigin;
       return formatObject;
     }
+    var ReturnFormatter = (object)=>{
+      console.log(object);
+      formatObject = {};
+      formatObject[0] = object.BatterySerial;
+      formatObject[1] = object.BatteryVoltage;
+      formatObject[2] = object.Comments;
+      formatObject[3] = object.CommsError;
+      formatObject[4] = object.CommsTest;
+      formatObject[5] = object.Customer;
+      formatObject[6] = object.DateReturned;
+      formatObject[7] = object.FaultCategory;
+      formatObject[8] = object.FixApplied;
+      formatObject[9] = object.History;
+      formatObject[10] = object.IMEI;
+      formatObject[11] = object.Product;
+      formatObject[12] = object.ProductCode;
+      formatObject[13] = object.ReturnReason;
+      formatObject[14] = "Abdul Rahman";
+      formatObject[15] = object.SensorError;
+      formatObject[16] = object.SensorTest;
+      formatObject[17] = object.SerialNumber;
+      formatObject[18] = object.Status;
+      formatObject[19] = object.Tags;
+      formatObject[20] = new Date().toLocaleString();
+      formatObject[21] =object.VisualComments;
+      formatObject[22] = object.VisualInspection;
+      console.log(formatObject);
+      return formatObject;
+      
+    }
     var TestAPIPost = (object)=>{  
       // instantiate a headers object
       var myHeaders = new Headers();
       // add content type header to object
       var obj = JSON.stringify(object);
+      console.log(obj);
       myHeaders.append("Content-Type", "application/json");
       // create a JSON object with parameters for API call and store in a variable
       var requestOptions = {
@@ -171,14 +211,27 @@
           body: obj,
           redirect: 'follow'
       };
-      var url = "https://n6uac60or4.execute-api.eu-west-1.amazonaws.com/beta/query1"
+      var url = "https://n6uac60or4.execute-api.eu-west-1.amazonaws.com/beta/testing"
       // make API call with parameters and use promises to get response
       fetch(url, requestOptions)
       .then(response => response.text())
       .then(result => console.log(JSON.parse(result).body))
       .catch(error => console.log('Post API Error'+ error));
-  }  
-  var getFilterAPI = (Filter,FilterInput)=>{
+  }
+  var getReturnsFilterAPI = (Filter,FilterInput)=>{
+    Database = "returns";
+    getFilterAPI(Database,Filter,FilterInput);
+  }
+  var getTestingFilterAPI = (Filter,FilterInput)=>{
+    Database = "testing";
+    getFilterAPI(Database,Filter,FilterInput);
+  }
+  var getUnitFilterAPI = (Filter,FilterInput)=>{
+    Database = "units";
+    getFilterAPI(Database,Filter,FilterInput);
+  }
+  var getFilterAPI = (Database,Filter,FilterInput)=>{
+    console.log(Database);
     console.log(Filter);
     console.log(FilterInput);
       if(FilterInput.value == "")
@@ -187,9 +240,14 @@
           return;
       }
       x = Filter;
-      var json = {"Filter":Filter.value,"Value":FilterInput.value};
+      var url = "https://n6uac60or4.execute-api.eu-west-1.amazonaws.com/beta/"+Database
+      var DatabasePointer = "";
+      if(Database == "returns"){DatabasePointer = "ReturnsData";}
+      if(Database == "testing"){DatabasePointer = "RigData";}
+      if(Database == "units"){DatabasePointer = "UnitData";}
+      var json = {"Database":DatabasePointer,"Filter":Filter.value,"Value":FilterInput.value};
       //json = JSON.stringify({"SerialNumber":SerialNumber.value});
-      var url = "https://n6uac60or4.execute-api.eu-west-1.amazonaws.com/beta/query1"
+      
       var query = encodeQuery(json);
       givenUrl = url +"?"+ query;
       console.log("Given URL:")
@@ -207,12 +265,16 @@
       // make API call with parameters and use promises to get response
       fetch(givenUrl, requestOptions)
       .then(response => response.text())
-      .then(result => displayGetData(result))
+      .then(result => displayGetData(result,Database))
       .catch(error => window.alert('Filter API Error', error));
   }
-  function displayGetData(data){
+  function displayGetData(data,Database){
       //Define and Clear old Table
       let list = document.getElementById("UnListTest");
+      if(Database == "returns"){
+        list = document.getElementById("UnListReturn");
+      }
+      
       list.innerHTML = "";
       //Parse JSON Data
       parsedData = JSON.parse(data);
@@ -568,11 +630,34 @@
             </div>
             <label for="Comments" class="form-label">Comments</label>
             <textarea class="form-control col-md-9" id="Comments" rows="4"></textarea>
-            <button id="submitReturnsUnitDetails" type="button" class="btn btn-primary form-control col-md-6" onclick="TestPostAPI(ReturnsForm); ReturnsForm.reset(); this.blur();">Submit</button>
+            <button id="submitReturnsUnitDetails" type="button" class="btn btn-primary form-control col-md-6" onclick="ReturnsAPIFormat(ReturnsForm); this.blur();">Submit</button>
             <button id="clearReturnsForm" type="button" class="btn btn-primary form-control col-md-3" onclick="ReturnsForm.reset(); this.blur();">Clear Form</button>
           </form>
-          <table id="UnListReturns" width="900" height="1000"></table>
-        </main>
+          <h2>Get Unit Details</h2>
+          <div class="row">
+        <form id="ReturnsGet">
+          <div class="row">
+            <div class="col-md-3">
+              <label for="ReturnsFilter" class="form-label">Filter Type:</label>
+              <select id="ReturnsFilter" class="form-control">
+                  <option value="SerialNumber">Serial Number</option>
+                  <option value="BatterySerial">Battery Serial</option>
+                  <option value="IMEI">IMEI</option>
+                  <option value="FailState">Fail State</option>
+              </select>
+            </div>
+            <div class="col-md-3">
+              <label for="ReturnsFilterInput" class="form-label">Filter By:</label>
+              <input type="text" id="ReturnsFilterInput" class="form-control">
+            </div>
+            <div class="col-md-3">
+              <label for="getTestDetailsButton" class="form-label">Get Data:</label>
+              <button id="getTestDetailsButton" type="button" class="btn btn-primary form-control bottom" onclick="getReturnsFilterAPI(ReturnsFilter,ReturnsFilterInput)">Get Results</button>
+            </div>
+          </div>
+        </form>
+        <table id="UnListReturn" class="table table-bordered table-responsive table-hover table-sm table-dark" width="900" height="1000"></table>
+      </main>
       </div>
     </div>
     
@@ -676,8 +761,8 @@
         <form id="TestForm">
           <div class="row">
             <div class="col-md-3">
-              <label for="Filter" class="form-label">Filter Type:</label>
-              <select id="Filter" class="form-control">
+              <label for="TestFilter" class="form-label">Filter Type:</label>
+              <select id="TestFilter" class="form-control">
                   <option value="SerialNumber">Serial Number</option>
                   <option value="BatterySerial">Battery Serial</option>
                   <option value="IMEI">IMEI</option>
@@ -685,12 +770,12 @@
               </select>
             </div>
             <div class="col-md-3">
-              <label for="FilterInput" class="form-label">Filter By:</label>
-              <input type="text" id="FilterInput" class="form-control">
+              <label for="TestFilterInput" class="form-label">Filter By:</label>
+              <input type="text" id="TestFilterInput" class="form-control">
             </div>
             <div class="col-md-3">
               <label for="getTestDetailsButton" class="form-label">Get Data:</label>
-              <button id="getTestDetailsButton" type="button" class="btn btn-primary form-control bottom" onclick="getFilterAPI(Filter,FilterInput)">Get Results</button>
+              <button id="getTestDetailsButton" type="button" class="btn btn-primary form-control bottom" onclick="getTestingFilterAPI(TestFilter,TestFilterInput)">Get Results</button>
             </div>
           </div>
         </form>
@@ -698,7 +783,7 @@
       <div class="pt-2 pb-2 mb-3 "></div>
         <table id="UnListTest" class="table table-bordered table-responsive table-hover table-sm table-dark" width="900" height="1000"></table>
       </main>
-    </div>
+      </div>
     </div>
   </div>   
 </body>
