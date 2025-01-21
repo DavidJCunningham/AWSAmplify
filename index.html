@@ -7,6 +7,8 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
 
     <title>R&D - Returns Form</title>
     <script>
@@ -459,6 +461,53 @@
     font-size: 101%;
   }
 </style>
+<script>
+  const yValues = [55, 49, 33, 24];
+  const barColors = ;
+</script>
+<script>
+function RenderDeviceType(){
+  new Chart("DeviceTypeChart", {
+  type: "doughnut",
+  data: {
+      labels: ["Alarm", "Smart V1", "Smart V2", "Ultrasonic Sensor"],
+      datasets: [{
+      backgroundColor: ["red", "green","blue","orange"],
+      data: yValues
+      }]
+  },
+  options: {
+      title: {
+      display: true,
+      text: "Device Testing Breakdown"
+      }
+  }
+  });
+}
+  function RenderPassFail(){
+  new Chart("PassFailChart", {
+  type: "barChart",
+  data: {
+      labels: xValues,
+      datasets: [{
+      backgroundColor: barColors,
+      data: yValues
+      }]
+  },
+  options: {
+      title: {
+      display: true,
+      text: "Device Testing Breakdown"
+      }
+  }
+  });
+}
+function DashboardPress(event,text){
+  openTab(event, text);
+  RenderDeviceType();
+  RenderPassFail();
+}
+</script>
 <body onload="OnAppearing()">
   <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
     <div class="container-fluid">
@@ -469,7 +518,7 @@
       <div class="collapse navbar-collapse" id="navbarColor01">
         <ul class="navbar-nav me-auto">
           <li class="nav-item">
-            <a class="nav-link clickable" href="javascript: void(0)" id="defaultOpen" onclick="openTab(event, 'Dashboard')">Dashboard
+            <a class="nav-link clickable" href="javascript: void(0)" id="defaultOpen" onclick="DashboardPress(event, 'Dashboard')">Dashboard
               <span class="visually-hidden">(current)</span>
             </a>
           </li>
@@ -493,9 +542,157 @@
         <main class="col-md-auto ml-sm-auto col-lg-10 px-md-4">
           <div
             class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
-            <h1>Dashboard</h1>
           </div>
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+              <h1 class="h2">Dashboard</h1>
+              <div class="btn-toolbar mb-2 mb-md-0">
+                <div class="btn-group me-2">
+                  <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+                </div>
+                <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle d-flex align-items-center gap-1">
+                  <svg class="bi"><use xlink:href="#calendar3"></use></svg>
+                  This week
+                </button>
+              </div>
+            </div>
+            
+            <div>
+              <canvas id="DeviceTypeChart" style="width:100%;max-width:700px"></canvas>
+              <canvas id="PassFailChart" style="width:100%;max-width:700px"></canvas>
+            </div>
+
+      
+            <h2>Section title</h2>
+            <div class="table-responsive small">
+              <table class="table table-striped table-sm">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Header</th>
+                    <th scope="col">Header</th>
+                    <th scope="col">Header</th>
+                    <th scope="col">Header</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1,001</td>
+                    <td>random</td>
+                    <td>data</td>
+                    <td>placeholder</td>
+                    <td>text</td>
+                  </tr>
+                  <tr>
+                    <td>1,002</td>
+                    <td>placeholder</td>
+                    <td>irrelevant</td>
+                    <td>visual</td>
+                    <td>layout</td>
+                  </tr>
+                  <tr>
+                    <td>1,003</td>
+                    <td>data</td>
+                    <td>rich</td>
+                    <td>dashboard</td>
+                    <td>tabular</td>
+                  </tr>
+                  <tr>
+                    <td>1,003</td>
+                    <td>information</td>
+                    <td>placeholder</td>
+                    <td>illustrative</td>
+                    <td>data</td>
+                  </tr>
+                  <tr>
+                    <td>1,004</td>
+                    <td>text</td>
+                    <td>random</td>
+                    <td>layout</td>
+                    <td>dashboard</td>
+                  </tr>
+                  <tr>
+                    <td>1,005</td>
+                    <td>dashboard</td>
+                    <td>irrelevant</td>
+                    <td>text</td>
+                    <td>placeholder</td>
+                  </tr>
+                  <tr>
+                    <td>1,006</td>
+                    <td>dashboard</td>
+                    <td>illustrative</td>
+                    <td>rich</td>
+                    <td>data</td>
+                  </tr>
+                  <tr>
+                    <td>1,007</td>
+                    <td>placeholder</td>
+                    <td>tabular</td>
+                    <td>information</td>
+                    <td>irrelevant</td>
+                  </tr>
+                  <tr>
+                    <td>1,008</td>
+                    <td>random</td>
+                    <td>data</td>
+                    <td>placeholder</td>
+                    <td>text</td>
+                  </tr>
+                  <tr>
+                    <td>1,009</td>
+                    <td>placeholder</td>
+                    <td>irrelevant</td>
+                    <td>visual</td>
+                    <td>layout</td>
+                  </tr>
+                  <tr>
+                    <td>1,010</td>
+                    <td>data</td>
+                    <td>rich</td>
+                    <td>dashboard</td>
+                    <td>tabular</td>
+                  </tr>
+                  <tr>
+                    <td>1,011</td>
+                    <td>information</td>
+                    <td>placeholder</td>
+                    <td>illustrative</td>
+                    <td>data</td>
+                  </tr>
+                  <tr>
+                    <td>1,012</td>
+                    <td>text</td>
+                    <td>placeholder</td>
+                    <td>layout</td>
+                    <td>dashboard</td>
+                  </tr>
+                  <tr>
+                    <td>1,013</td>
+                    <td>dashboard</td>
+                    <td>irrelevant</td>
+                    <td>text</td>
+                    <td>visual</td>
+                  </tr>
+                  <tr>
+                    <td>1,014</td>
+                    <td>dashboard</td>
+                    <td>illustrative</td>
+                    <td>rich</td>
+                    <td>data</td>
+                  </tr>
+                  <tr>
+                    <td>1,015</td>
+                    <td>random</td>
+                    <td>tabular</td>
+                    <td>information</td>
+                    <td>text</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
         </main>
+        
       </div>
     </div>
     
