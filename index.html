@@ -33,6 +33,40 @@
         evt.currentTarget.className += " active";
         window.history.pushState('', '', '/#'+tabName);
       } 
+      function openTab(tabName) {
+        // Declare all variables
+        var i, tabcontent, tablinks;
+        if(tabName=""){tabName="Dashboard"}
+        
+        // Get all elements with class="tabcontent" and hide them
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+          tabcontent[i].style.display = "none";
+        }
+
+        // Get all elements with class="tablinks" and remove the class "active"
+        tablinks = document.getElementsByClassName("nav-link");
+        for (i = 0; i < tablinks.length; i++) {
+          tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+
+        // Show the current tab, and add an "active" class to the button that opened the tab
+        document.getElementById(tabName).style.display = "block";
+
+        //make the given tab active
+        switch(tabName){
+          case "Dashboard":
+            DashboardTitle.className += " active";
+            break;
+          case "Testing":
+            TestingTitle.className += " active";
+            break;
+          case "Returns":
+            ReturnsTitle.className += " active";
+            break;
+        }
+        //window.history.pushState('', '', '/#'+tabName);
+      } 
       
       
   // callAPI function that takes the base and exponent numbers as parameters
@@ -546,22 +580,21 @@ function RenderDeviceType(){
     RenderPassFail();
     RenderTestHistory();
   }
-  var CurrentPage = "";
   function GetPage()
   {
     //if page is dashboard or default
     var currentUrl = (window.location.href);
-    console.log(currentPage);
+    console.log(currentUrl);
     //scrub base url then split by & to just get the chosen page
     var currentParams = (currentUrl.replace("https://main.d23gwgub2u9aya.amplifyapp.com/#","")).split("&");
     
     console.log(currentPage);
     var currentPage = currentParams[0];
-      var databaseChosen = "";
-      var dateTimeChosen = "";
+    openTab(currentPage);
+    var databaseChosen = "";
+    var dateTimeChosen = "";
     //parse testing or returns & datetime period chosen
     GetGraphData(databaseChosen, dateTimeChosen);
-      
     //else do nothing
   }
   function GetGraphData(DatabaseChosen,DatetimeChosen)
@@ -626,15 +659,15 @@ function RenderDeviceType(){
       <div class="collapse navbar-collapse" id="navbarColor01">
         <ul class="navbar-nav me-auto">
           <li class="nav-item">
-            <a class="nav-link clickable" href="javascript: void(0)" id="defaultOpen" onclick="DashboardPress(event, 'Dashboard')">Dashboard
+            <a id="DashboardTitle" class="nav-link clickable" href="javascript: void(0)" id="defaultOpen" onclick="DashboardPress(event, 'Dashboard')">Dashboard
               <span class="visually-hidden">(current)</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link clickable" href="javascript: void(0)" onclick="openTab(event, 'Returns')">Returns</a>
+            <a id="ReturnsTitle" class="nav-link clickable" href="javascript: void(0)" onclick="openTab(event, 'Returns')">Returns</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link clickable" href="javascript: void(0)" onclick="openTab(event, 'Testing')">Testing</a>
+            <a id="TestingTitle" class="nav-link clickable" href="javascript: void(0)" onclick="openTab(event, 'Testing')">Testing</a>
           </li>
         </ul>
         <form class="d-flex">
