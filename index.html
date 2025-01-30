@@ -36,7 +36,6 @@
       if (objs == "Reload"){
 
         // Declare all variables
-        if(tabName==""){tabName="Dashboard"}
         
         // Get all elements with class="tabcontent" and hide them
         tabcontent = document.getElementsByClassName("tabcontent");
@@ -586,10 +585,9 @@ function RenderDeviceType(){
     var currentUrl = (window.location.href);
     console.log(currentUrl);
     //scrub base url then split by & to just get the chosen page
-    var currentParams = (currentUrl.replace("https://main.d23gwgub2u9aya.amplifyapp.com/#","")).split("&");
-    
-    console.log(currentPage);
+    var currentParams = (currentUrl.replace("https://main.d23gwgub2u9aya.amplifyapp.com","")).replace("/#","").split("&");
     var currentPage = currentParams[0];
+    if(currentPage == ""){currentPage="Dashboard"}}
     openTab(null,currentPage,"Reload");
     if (currentPage = "Dashboard")
     {
