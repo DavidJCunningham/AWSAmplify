@@ -50,18 +50,18 @@
           tablinks[i].className = tablinks[i].className.replace(" active", "");
         }
 
-        // Show the current tab, and add an "active" class to the button that opened the tab
-        document.getElementById(tabName).style.display = "block";
-
         //make the given tab active
         switch(tabName){
           case "Dashboard":
+            DashboardTitle.style.display = "block";
             DashboardTitle.className += " active";
             break;
           case "Testing":
+            TestingTitle.style.display = "block";
             TestingTitle.className += " active";
             break;
           case "Returns":
+          ReturnsTitle.style.display = "block";
             ReturnsTitle.className += " active";
             break;
         }
