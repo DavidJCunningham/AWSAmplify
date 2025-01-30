@@ -591,11 +591,15 @@ function RenderDeviceType(){
     console.log(currentPage);
     var currentPage = currentParams[0];
     openTab(null,currentPage,"Reload");
-    var databaseChosen = "";
-    var dateTimeChosen = "";
-    //parse testing or returns & datetime period chosen
-    GetGraphData(databaseChosen, dateTimeChosen);
-    //else do nothing
+    if (currentPage = "Dashboard")
+    {
+      var databaseChosen = "";
+      var dateTimeChosen = "";
+      //parse testing or returns & datetime period chosen
+      GetGraphData(databaseChosen, dateTimeChosen);
+      //else do nothing
+      RefreshGraphs();
+    }
   }
   function GetGraphData(DatabaseChosen,DatetimeChosen)
   {    
