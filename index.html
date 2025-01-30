@@ -12,10 +12,10 @@
 
     <title>R&D - Returns Form</title>
     <script>
-      function openTab(evt, tabName) {
+      function openTab(evt, tabName,objs) {
         // Declare all variables
         var i, tabcontent, tablinks;
-        
+        if(objs == "Click"){
         // Get all elements with class="tabcontent" and hide them
         tabcontent = document.getElementsByClassName("tabcontent");
         for (i = 0; i < tabcontent.length; i++) {
@@ -32,10 +32,10 @@
         document.getElementById(tabName).style.display = "block";
         evt.currentTarget.className += " active";
         window.history.pushState('', '', '/#'+tabName);
-      } 
-      function openTab(tabName) {
+      }
+      if (objs == "Reload"){
+
         // Declare all variables
-        var i, tabcontent, tablinks;
         if(tabName=""){tabName="Dashboard"}
         
         // Get all elements with class="tabcontent" and hide them
@@ -65,8 +65,8 @@
             ReturnsTitle.className += " active";
             break;
         }
-        //window.history.pushState('', '', '/#'+tabName);
-      } 
+      }
+    } 
       
       
   // callAPI function that takes the base and exponent numbers as parameters
@@ -571,7 +571,7 @@ function RenderDeviceType(){
   }
   function DashboardPress(event,text)
   {
-    openTab(event, text);
+    openTab(event, text,"Click");
     RefreshGraphs();
   }
   function RefreshGraphs()
@@ -590,7 +590,7 @@ function RenderDeviceType(){
     
     console.log(currentPage);
     var currentPage = currentParams[0];
-    openTab(currentPage);
+    openTab(null,currentPage,"Reload");
     var databaseChosen = "";
     var dateTimeChosen = "";
     //parse testing or returns & datetime period chosen
@@ -664,10 +664,10 @@ function RenderDeviceType(){
             </a>
           </li>
           <li class="nav-item">
-            <a id="ReturnsTitle" class="nav-link clickable" href="javascript: void(0)" onclick="openTab(event, 'Returns')">Returns</a>
+            <a id="ReturnsTitle" class="nav-link clickable" href="javascript: void(0)" onclick="openTab(event, 'Returns','Click')">Returns</a>
           </li>
           <li class="nav-item">
-            <a id="TestingTitle" class="nav-link clickable" href="javascript: void(0)" onclick="openTab(event, 'Testing')">Testing</a>
+            <a id="TestingTitle" class="nav-link clickable" href="javascript: void(0)" onclick="openTab(event, 'Testing','Click')">Testing</a>
           </li>
         </ul>
         <form class="d-flex">
