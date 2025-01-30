@@ -551,6 +551,7 @@ function RenderDeviceType(){
   {
     //if page is dashboard or default
     var currentUrl = (window.location.href);
+    console.log(currentPage);
     //scrub base url then split by & to just get the chosen page
     var currentParams = (currentUrl.replace("https://main.d23gwgub2u9aya.amplifyapp.com/#","")).split("&");
     
@@ -585,26 +586,26 @@ function RenderDeviceType(){
     //Parse Pass/Fail data for Graph 3
   }
   function GraphDataAPI(Database, Timescale){
-          var url = "https://n6uac60or4.execute-api.eu-west-1.amazonaws.com/beta/"
-          //var query = encodeQuery();
+          // var url = "https://n6uac60or4.execute-api.eu-west-1.amazonaws.com/beta/"
+          // //var query = encodeQuery();
           
-          // add content type header to object
-          const headers = {
-              "Content-Type": "application/json"
-          };
-          // create a JSON object with parameters for API call and store in a variable
-          var requestOptions = {
-              method: 'GET',
-              headers: headers,
-              redirect: 'follow',
-          };
-          givenUrl = "https://n6uac60or4.execute-api.eu-west-1.amazonaws.com/beta/query1"
-          console.log(requestOptions,givenUrl);
-          // make API call with parameters and use promises to get response
-          fetch(givenUrl, requestOptions)
-          .then(response => response.text())
-          .then(result => console.log(result))
-          .catch(error => console.log('Test API Error', error));
+          // // add content type header to object
+          // const headers = {
+          //     "Content-Type": "application/json"
+          // };
+          // // create a JSON object with parameters for API call and store in a variable
+          // var requestOptions = {
+          //     method: 'GET',
+          //     headers: headers,
+          //     redirect: 'follow',
+          // };
+          // givenUrl = "https://n6uac60or4.execute-api.eu-west-1.amazonaws.com/beta/query1"
+          // console.log(requestOptions,givenUrl);
+          // // make API call with parameters and use promises to get response
+          // fetch(givenUrl, requestOptions)
+          // .then(response => response.text())
+          // .then(result => console.log(result))
+          // .catch(error => console.log('Test API Error', error));
       }
 </script>
 <script>
