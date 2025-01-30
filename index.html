@@ -505,9 +505,9 @@ function RenderDeviceType(){
 }
   function RenderTestHistory(){
     //get data from database
-    var testHistoryX = ["2016-12-25","2016-12-26","2016-12-27","2016-12-28"] 
-    var testHistoryY = [12,15,8,26] 
-    var TestHistoryData = [{x:"2024-12-25",y:12},{x:"2024-12-26",y:15},{x:"2024-12-27",y:8},{x:"2024-12-28",y:26}] 
+    var testHistoryX = ["2016-12-25","2016-12-26","2016-12-27","2016-12-28"]
+    var testHistoryY = [12,15,8,26]
+    var TestHistoryData = [{x:"2024-12-25",y:12},{x:"2024-12-26",y:15},{x:"2024-12-27",y:8},{x:"2024-12-28",y:26}]
     
     new Chart("TestHistoryChart", {
     type: "line",
@@ -953,7 +953,7 @@ function RenderDeviceType(){
             </div>
           </div>
         </form>
-        <button id="submitTestUnitDetails" type="button" class="btn btn-primary form-control mt-4 col-md-6" onclick="TestPostAPI(TestForm); TestForm.reset(); this.blur()">Submit</button>
+        <button id="submitTestUnitDetails" type="button" class="btn btn-primary form-control mt-4 col-md-6" onclick="TestingAPIFormat(TestForm); TestForm.reset(); this.blur()">Submit</button>
         <button id="clearTestingButton" type="button" class="btn btn-primary form-control mt-4 col-md-3" onclick="TestForm.reset(); this.blur()">Clear Form</button>
         <div class="pt-2 pb-2 mb-3 "></div>
         
