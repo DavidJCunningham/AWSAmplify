@@ -615,7 +615,7 @@ function RenderDeviceType(){
         DataBase = "RigData"
         break;
     }
-    var xData = GraphDataAPI(DataBase,DatetimeChosen)
+    //var xData = GraphDataAPI(DataBase,DatetimeChosen)
     //Get data from database for given time period
     //Parse amount of tests for Graph 1
     //Parse Device Type data for Graph 2
@@ -627,7 +627,7 @@ function RenderDeviceType(){
           
           // // add content type header to object
           // const headers = {
-          //     "Content-Type": "application/json"
+          //   "Content-Type": "application/json"
           // };
           // // create a JSON object with parameters for API call and store in a variable
           // var requestOptions = {
@@ -635,7 +635,7 @@ function RenderDeviceType(){
           //     headers: headers,
           //     redirect: 'follow',
           // };
-          // givenUrl = "https://n6uac60or4.execute-api.eu-west-1.amazonaws.com/beta/query1"
+          // givenUrl = "https://n6uac60or4.execute-api.eu-west-1.amazonaws.com/beta/dashboard"
           // console.log(requestOptions,givenUrl);
           // // make API call with parameters and use promises to get response
           // fetch(givenUrl, requestOptions)
@@ -662,15 +662,15 @@ function RenderDeviceType(){
       <div class="collapse navbar-collapse" id="navbarColor01">
         <ul class="navbar-nav me-auto">
           <li class="nav-item">
-            <a id="DashboardTitle" class="nav-link clickable" href="javascript: void(0)" id="defaultOpen" onclick="DashboardPress(event, 'Dashboard')">Dashboard
+            <a id="DashboardTitle" class="nav-link clickable" href="" id="defaultOpen" onclick="DashboardPress(event, 'Dashboard')">Dashboard
               <span class="visually-hidden">(current)</span>
             </a>
           </li>
           <li class="nav-item">
-            <a id="ReturnsTitle" class="nav-link clickable" href="javascript: void(0)" onclick="openTab(event, 'Returns','Click')">Returns</a>
+            <a id="ReturnsTitle" class="nav-link clickable" href="" onclick="openTab(event, 'Returns','Click')">Returns</a>
           </li>
           <li class="nav-item">
-            <a id="TestingTitle" class="nav-link clickable" href="javascript: void(0)" onclick="openTab(event, 'Testing','Click')">Testing</a>
+            <a id="TestingTitle" class="nav-link clickable" href="" onclick="openTab(event, 'Testing','Click')">Testing</a>
           </li>
         </ul>
         <form class="d-flex">
@@ -700,8 +700,8 @@ function RenderDeviceType(){
                 </select>
                 
                 <div class="btn-group me-2 align-right btn-toolbar mb-2 mb-md-0">
-                  <button type="button" class="btn btn-sm btn-outline-secondary btn-light active">Testing</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary btn-light">Returns</button>
+                  <button id="TestingDBButton" type="button" class="btn btn-sm btn-outline-secondary btn-light active">Testing</button>
+                  <button id="ReturnsDBButton" type="button" class="btn btn-sm btn-outline-secondary btn-light">Returns</button>
                 </div>
               </div>
             </div>
