@@ -623,11 +623,6 @@ function RenderDeviceType(){
   }
   function GraphDataAPI(Database, Timescale)
       {
-      if(FilterInput.value == "")
-      {
-          window.alert("Filter Field Missing Value");
-          return;
-      }
       x = Filter;
       var url = "https://n6uac60or4.execute-api.eu-west-1.amazonaws.com/beta/";
       if(Timescale == null){
