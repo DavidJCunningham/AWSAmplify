@@ -615,34 +615,68 @@ function RenderDeviceType(){
         DataBase = "RigData"
         break;
     }
-    //var xData = GraphDataAPI(DataBase,DatetimeChosen)
     //Get data from database for given time period
+    var xData = GraphDataAPI(DataBase,DatetimeChosen)
     //Parse amount of tests for Graph 1
     //Parse Device Type data for Graph 2
     //Parse Pass/Fail data for Graph 3
   }
   function GraphDataAPI(Database, Timescale){
-          // var url = "https://n6uac60or4.execute-api.eu-west-1.amazonaws.com/beta/"
-          // //var query = encodeQuery();
+          var url = "https://n6uac60or4.execute-api.eu-west-1.amazonaws.com/beta/"+Database;
+          //var query = encodeQuery();
           
-          // // add content type header to object
-          // const headers = {
-          //   "Content-Type": "application/json"
-          // };
-          // // create a JSON object with parameters for API call and store in a variable
-          // var requestOptions = {
-          //     method: 'GET',
-          //     headers: headers,
-          //     redirect: 'follow',
-          // };
-          // givenUrl = "https://n6uac60or4.execute-api.eu-west-1.amazonaws.com/beta/dashboard"
-          // console.log(requestOptions,givenUrl);
-          // // make API call with parameters and use promises to get response
-          // fetch(givenUrl, requestOptions)
-          // .then(response => response.text())
-          // .then(result => console.log(result))
-          // .catch(error => console.log('Test API Error', error));
+          // add content type header to object
+          const headers = {
+            "Content-Type": "application/json"
+          };
+          // create a JSON object with parameters for API call and store in a variable
+          var requestOptions = {
+              method: 'GET',
+              headers: headers,
+              redirect: 'follow',
+          };
+          var givenUrl = url+"+Timescale"
+          console.log(requestOptions,givenUrl);
+          // make API call with parameters and use promises to get response
+          fetch(givenUrl, requestOptions)
+          .then(response => response.text())
+          .then(result => console.log(result))
+          .catch(error => console.log('Test API Error', error));
       }
+  function GraphDataAPI(Database, Timescale)
+      {
+      if(FilterInput.value == "")
+      {
+          window.alert("Filter Field Missing Value");
+          return;
+      }
+      x = Filter;
+      var url = "https://n6uac60or4.execute-api.eu-west-1.amazonaws.com/beta/";
+      if(Timescale == null){
+            Timescale = "Day";
+      }
+      var json = {"Database":Database,"Dashboard":Timescale};
+      
+      var query = encodeQuery(json);
+      givenUrl = url +"?"+ query;
+      console.log("Given URL:")
+      console.log(givenUrl);
+      // add content type header to object
+      const headers = {
+          "Content-Type": "application/json"
+      };
+      // create a JSON object with parameters for API call and store in a variable
+      var requestOptions = {
+          method: 'GET',
+          headers: headers,
+          redirect: 'follow',
+      };
+      // make API call with parameters and use promises to get response
+      fetch(givenUrl, requestOptions)
+      .then(response => response.text())
+      .then(result => displayGetData(result,Database))
+      .catch(error => window.alert('Filter API Error', error));
+  }
 </script>
 <script>
   function OnAppearing()
