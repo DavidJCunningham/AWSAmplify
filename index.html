@@ -616,7 +616,7 @@ function RenderDeviceType(){
         break;
     }
     //Get data from database for given time period
-    var xData = GraphDataAPI(DataBase,DatetimeChosen)
+    //var xData = GraphDataAPI(DataBase,DatetimeChosen)
     //Parse amount of tests for Graph 1
     //Parse Device Type data for Graph 2
     //Parse Pass/Fail data for Graph 3
@@ -647,7 +647,7 @@ function RenderDeviceType(){
       fetch(givenUrl, requestOptions)
       .then(response => response.text())
       .then(result => displayGetData(result,Database))
-      .catch(error => window.alert('Filter API Error', error));
+      .catch(error => console.log('Filter API Error', error));
   }
 </script>
 <script>
