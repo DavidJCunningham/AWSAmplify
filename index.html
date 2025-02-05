@@ -654,15 +654,15 @@ function RenderDeviceType(){
   function TestReturnPress(context){
     switch(context) {
       case 'testing':
-        TestingDBButton.className +=" active";
+        TestingDBButton.className += " active";
         ReturnsDBButton.className.replace(" active", "");
         break;
       case 'returns':
-        ReturnsDBButton.className +=" active";
+        ReturnsDBButton.className += " active";
         TestingDBButton.className.replace(" active", "");
         break;
       default:
-        TestingDBButton.className +=" active";
+        TestingDBButton.className += " active";
         ReturnsDBButton.className.replace(" active", "");
     } 
   }
@@ -724,7 +724,7 @@ function RenderDeviceType(){
                 
                 <div class="btn-group me-2 align-right btn-toolbar mb-2 mb-md-0">
                   <button id="TestingDBButton" type="button" class="btn btn-sm btn-outline-secondary btn-light" onclick="TestReturnPress('testing')">Testing</button>
-                  <button id="ReturnsDBButton" type="button" class="btn btn-sm btn-outline-secondary btn-light" onclick="TestReturnPress('return')">Returns</button>
+                  <button id="ReturnsDBButton" type="button" class="btn btn-sm btn-outline-secondary btn-light" onclick="TestReturnPress('returns')">Returns</button>
                 </div>
               </div>
             </div>
