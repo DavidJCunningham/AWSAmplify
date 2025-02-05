@@ -592,9 +592,13 @@ function RenderDeviceType(){
     openTab(null,currentPage,"Reload");
     if (currentPage == "Dashboard")
     {
-      if(currentParams.count() == 2){}
       var databaseChosen = "";
       var dateTimeChosen = "";
+      if(currentParams.count() == 3)
+      {
+        databaseChosen=currentParams[1];
+        dateTimeChosen=currentParams[2];
+      }
       //parse testing or returns & datetime period chosen
       GetGraphData(databaseChosen, dateTimeChosen);
       //else do nothing
@@ -606,6 +610,9 @@ function RenderDeviceType(){
     //Get selected database
     var DataBase = "";
     switch(DatabaseChosen) {
+      case "":
+        DataBase = "RigData"
+        break;
       case "Testing":
         DataBase = "RigData"
         break;
@@ -613,13 +620,34 @@ function RenderDeviceType(){
         DataBase = "ReturnsData"
         break;
       default:
-        DataBase = "RigData"
+        window.alert("Invalid Url Detected \n\r Default Selected");
+        DataBase = "RigData";
+        DatetimeChosen = "Week";
         break;
     }
-    
-    if(DatetimeChosen == ""){
-        DatetimeChosen = "Day";
-      }
+
+    switch(DatetimeChosen) {
+      case "":
+        DataBase = "Weekly"
+        break;
+      case "Day":
+        DataBase = "Daily"
+        break;
+      case "Week":
+        DataBase = "Weekly"
+        break;
+      case "Month":
+        DataBase = "Monthly"
+        break;
+      case "Year":
+        DataBase = "Yearly"
+        break;
+      default:
+        window.alert("Invalid Url Detected \n\r Default Selected");
+        DataBase = "RigData";
+        DatetimeChosen = "Week";
+        break;
+    }
     //Get data from database for given time period
     var xData = GraphDataAPI(DataBase,DatetimeChosen)
     //Parse amount of tests for Graph 1
