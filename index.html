@@ -655,15 +655,15 @@ function RenderDeviceType(){
     switch(context) {
       case 'testing':
         TestingDBButton.className += " active";
-        ReturnsDBButton.className.replace(" active", "");
+        ReturnsDBButton.className = ReturnsDBButton.className.replace(" active", "");
         break;
       case 'returns':
         ReturnsDBButton.className += " active";
-        TestingDBButton.className.replace(" active", "");
+        TestingDBButton.className = TestingDBButton.className.replace(" active", "");
         break;
       default:
         TestingDBButton.className += " active";
-        ReturnsDBButton.className.replace(" active", "");
+        ReturnsDBButton.className = ReturnsDBButton.className.replace(" active", "");
     } 
   }
 </script>
