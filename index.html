@@ -586,12 +586,13 @@ function RenderDeviceType(){
     var currentUrl = (window.location.href);
     console.log(currentUrl);
     //scrub base url then split by & to just get the chosen page
-    var currentParams = (currentUrl.replace("https://main.d23gwgub2u9aya.amplifyapp.com","")).replace("/","").replace("#","").split("&");
+    var currentParams = (currentUrl.replace("https://main.d23gwgub2u9aya.amplifyapp.com","")).replace("/","").replace("#","").split("+");
     var currentPage = currentParams[0];
     if(currentPage == ""){currentPage="Dashboard"}
     openTab(null,currentPage,"Reload");
     if (currentPage == "Dashboard")
     {
+      if(currentParams.count() == 2){}
       var databaseChosen = "";
       var dateTimeChosen = "";
       //parse testing or returns & datetime period chosen
@@ -601,7 +602,7 @@ function RenderDeviceType(){
     }
   }
   function GetGraphData(DatabaseChosen,DatetimeChosen)
-  {    
+  {
     //Get selected database
     var DataBase = "";
     switch(DatabaseChosen) {
@@ -615,8 +616,12 @@ function RenderDeviceType(){
         DataBase = "RigData"
         break;
     }
+    
+    if(DatetimeChosen == ""){
+        DatetimeChosen = "Day";
+      }
     //Get data from database for given time period
-    //var xData = GraphDataAPI(DataBase,DatetimeChosen)
+    var xData = GraphDataAPI(DataBase,DatetimeChosen)
     //Parse amount of tests for Graph 1
     //Parse Device Type data for Graph 2
     //Parse Pass/Fail data for Graph 3
@@ -624,9 +629,6 @@ function RenderDeviceType(){
   function GraphDataAPI(Database, Timescale)
       {
       var url = "https://n6uac60or4.execute-api.eu-west-1.amazonaws.com/beta/";
-      if(Timescale == null){
-            Timescale = "Day";
-      }
       var json = {"Database":Database,"Dashboard":Timescale};
       
       var query = encodeQuery(json);
@@ -648,6 +650,21 @@ function RenderDeviceType(){
       .then(response => response.text())
       .then(result => displayGetData(result,Database))
       .catch(error => console.log('Filter API Error', error));
+  }
+  function TestReturnPress(context){
+    switch(context) {
+      case 'testing':
+        TestingDBButton.className +=" active";
+        ReturnsDBButton.className.replace(" active", "");
+        break;
+      case 'returns':
+        ReturnsDBButton.className +=" active";
+        TestingDBButton.className.replace(" active", "");
+        break;
+      default:
+        TestingDBButton.className +=" active";
+        ReturnsDBButton.className.replace(" active", "");
+    } 
   }
 </script>
 <script>
@@ -706,8 +723,8 @@ function RenderDeviceType(){
                 </select>
                 
                 <div class="btn-group me-2 align-right btn-toolbar mb-2 mb-md-0">
-                  <button id="TestingDBButton" type="button" class="btn btn-sm btn-outline-secondary btn-light active">Testing</button>
-                  <button id="ReturnsDBButton" type="button" class="btn btn-sm btn-outline-secondary btn-light">Returns</button>
+                  <button id="TestingDBButton" type="button" class="btn btn-sm btn-outline-secondary btn-light" onclick="TestReturnPress('testing')">Testing</button>
+                  <button id="ReturnsDBButton" type="button" class="btn btn-sm btn-outline-secondary btn-light" onclick="TestReturnPress('return')">Returns</button>
                 </div>
               </div>
             </div>
