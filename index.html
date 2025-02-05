@@ -709,7 +709,20 @@ function RenderDeviceType(){
         TestingDBButton.className += " active";
         ReturnsDBButton.className = ReturnsDBButton.className.replace(" active", "");
         }
-    } 
+    }
+  }
+  function UpdateURL(database,datetime)
+  {
+    var currentParams = (currentUrl.replace("https://main.d23gwgub2u9aya.amplifyapp.com","")).replace("/","").replace("#","").split("+");
+    if(currentParams.length == 3)
+    {
+      var databaseChosen=currentParams[1];
+      var dateTimeChosen=currentParams[2];
+      if(database != ""){databaseChosen = datebase;}
+      if(datetime != ""){dateTimeChosen = datetime;}
+      var setUrl = "https://main.d23gwgub2u9aya.amplifyapp.com/#Dashboard"+databaseChosen+"+"+dateTimeChosen;
+      window.location.href=setUrl;
+    }
   }
 </script>
 <script>
