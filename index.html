@@ -654,16 +654,22 @@ function RenderDeviceType(){
   function TestReturnPress(context){
     switch(context) {
       case 'testing':
+        if (!(TestingDBButton.className.includes(" active"))){
         TestingDBButton.className += " active";
         ReturnsDBButton.className = ReturnsDBButton.className.replace(" active", "");
+        }
         break;
       case 'returns':
+      if (!(ReturnsDBButton.className.includes(" active"))){
         ReturnsDBButton.className += " active";
         TestingDBButton.className = TestingDBButton.className.replace(" active", "");
+        }
         break;
       default:
+        if (!(TestingDBButton.className.includes(" active"))){
         TestingDBButton.className += " active";
         ReturnsDBButton.className = ReturnsDBButton.className.replace(" active", "");
+        }
     } 
   }
 </script>
