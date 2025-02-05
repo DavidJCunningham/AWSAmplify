@@ -589,6 +589,17 @@ function RenderDeviceType(){
     var currentParams = (currentUrl.replace("https://main.d23gwgub2u9aya.amplifyapp.com","")).replace("/","").replace("#","").split("+");
     var currentPage = currentParams[0];
     if(currentPage == ""){currentPage="Dashboard"}
+    switch(DatabaseChosen) {
+      case "Testing":
+        currentPage = "RigData"
+        break;
+      case "Returns":
+        currentPage = "ReturnsData"
+        break;
+      default:
+        currentPage == "Dashboard"
+        break;
+    }
     openTab(null,currentPage,"Reload");
     if (currentPage == "Dashboard")
     {
