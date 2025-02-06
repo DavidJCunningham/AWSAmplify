@@ -690,6 +690,11 @@ function RenderDeviceType(){
       .then(result => displayGetData(result,Database))
       .catch(error => console.log('Filter API Error', error));
   }
+  function DateTimeChange(){
+    var text = timescale.options[timescale.selectedIndex].text;
+    console.log(text);
+    UpdateURL("",text)
+  }
   function TestReturnPress(context){
     switch(context) {
       case 'Testing':
@@ -775,7 +780,7 @@ function RenderDeviceType(){
               <h1 class="h2">Dashboard</h1>
               <div class="btn-toolbar mb-2 mb-md-0">
                 <button type="button" class="btn btn-sm btn-outline-secondary btn-light" style="margin-right:5px;">Export</button>
-                <select name="timescalePicker" id="timescale" style="margin-right:5px;" class="btn btn-sm btn-outline-secondary btn-light d-flex align-items-center gap-1">
+                <select name="timescalePicker" id="timescale" onchange="DateTimeChange()" style="margin-right:5px;"  class="btn btn-sm btn-outline-secondary btn-light d-flex align-items-center gap-1">
                   <option value="all">All</option>
                   <option value="day">Day</option>
                   <option value="week">Week</option>
