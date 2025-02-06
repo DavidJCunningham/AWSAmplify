@@ -721,6 +721,7 @@ function RenderDeviceType(){
   }
   function UpdateURL(database,datetime)
   {
+    var currentUrl = (window.location.href);
     var currentParams = (currentUrl.replace("https://main.d23gwgub2u9aya.amplifyapp.com","")).replace("/","").replace("#","").split("+");
     if(currentParams.length == 3)
     {
