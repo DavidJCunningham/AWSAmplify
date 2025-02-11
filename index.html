@@ -655,10 +655,11 @@ function RenderDeviceType(){
       default:
         window.alert("Invalid Url Detected \n\r Default Selected");
         DataBase = "RigData";
-        DatetimeChosen = "Week";
+        DatetimeChosen = "Weekly";
         break;
     }
     //Get data from database for given time period
+    UpdateURL(DataBase,DatetimeChosen)
     var xData = GraphDataAPI(DataBase,DatetimeChosen)
     //Parse amount of tests for Graph 1
     //Parse Device Type data for Graph 2
