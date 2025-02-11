@@ -633,6 +633,7 @@ function RenderDeviceType(){
         window.alert("Invalid Url Detected \n\r Default Selected");
         DataBase = "RigData";
         DatetimeChosen = "Week";
+        UpdateURL(DataBase,DatetimeChosen)
         break;
     }
 
@@ -656,10 +657,10 @@ function RenderDeviceType(){
         window.alert("Invalid Url Detected \n\r Default Selected");
         DataBase = "RigData";
         DatetimeChosen = "Weekly";
+        UpdateURL(DataBase,DatetimeChosen)
         break;
     }
     //Get data from database for given time period
-    UpdateURL(DataBase,DatetimeChosen)
     var xData = GraphDataAPI(DataBase,DatetimeChosen)
     //Parse amount of tests for Graph 1
     //Parse Device Type data for Graph 2
@@ -728,13 +729,13 @@ function RenderDeviceType(){
     {
       databaseChosen=currentParams[1];
       var dateTimeChosen=currentParams[2];
-      if(database != ""){databaseChosen = database;}
-      if(datetime != ""){dateTimeChosen = datetime;}
+      if(database != ""){if(database == ""){database = "Testing"}databaseChosen = database}
+      if(datetime != ""){if(datetime == ""){datetime = "Weekly"}dateTimeChosen = datetime}
     }
     
     var setUrl = "https://main.d23gwgub2u9aya.amplifyapp.com/#Dashboard"+"+"+databaseChosen+"+"+dateTimeChosen;
     window.location.href=setUrl;
-
+    GetPage();
   }
 </script>
 <script>
