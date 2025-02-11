@@ -630,10 +630,7 @@ function RenderDeviceType(){
         DataBase = "ReturnsData"
         break;
       default:
-        window.alert("Invalid Url Detected \n\r Default Selected");
         DataBase = "RigData";
-        DatetimeChosen = "Week";
-        UpdateURL(DataBase,DatetimeChosen)
         break;
     }
 
@@ -654,27 +651,21 @@ function RenderDeviceType(){
         DatetimeChosen = "Yearly"
         break;
       default:
-        window.alert("Invalid Url Detected \n\r Default Selected");
-        DataBase = "RigData";
         DatetimeChosen = "Weekly";
-        UpdateURL(DataBase,DatetimeChosen)
         break;
     }
-    //Get data from database for given time period
-    var xData = GraphDataAPI(DataBase,DatetimeChosen)
-    //Parse amount of tests for Graph 1
-    //Parse Device Type data for Graph 2
-    //Parse Pass/Fail data for Graph 3
+    //Update URL with new values
+    UpdateURL(DataBase,DatetimeChosen)
+    //Call Graph API
+    GraphAPIParse(DataBase,DatetimeChosen);
   }
   function GraphDataAPI(Database, Timescale)
-      {
+    {
       var url = "https://n6uac60or4.execute-api.eu-west-1.amazonaws.com/beta/";
       var json = {"Database":Database,"Dashboard":Timescale};
       
       var query = encodeQuery(json);
       givenUrl = url +"?"+ query;
-      console.log("Given URL:")
-      console.log(givenUrl);
       // add content type header to object
       const headers = {
           "Content-Type": "application/json"
@@ -688,12 +679,17 @@ function RenderDeviceType(){
       // make API call with parameters and use promises to get response
       fetch(givenUrl, requestOptions)
       .then(response => response.text())
-      .then(result => displayGetData(result,Database))
+      .then(result => GraphAPIParse(result))
       .catch(error => console.log('Filter API Error', error));
+  }
+  function GraphAPIParse(data){
+    //Parse amount of tests for Graph 1
+    //Parse Device Type data for Graph 2
+
+    //Parse Pass/Fail data for Graph 3
   }
   function DateTimeChange(){
     var text = timescale.options[timescale.selectedIndex].text;
-    console.log(text);
     UpdateURL("",text)
   }
   function TestReturnPress(context){
@@ -742,7 +738,6 @@ function RenderDeviceType(){
   {
     GetPage();
     //TableHide("UnListTest")
-    //console.log("Hide List Complete")
   }
 </script>
 <body onload="OnAppearing()">
