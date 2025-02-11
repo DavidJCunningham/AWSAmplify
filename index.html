@@ -641,10 +641,10 @@ function RenderDeviceType(){
       case "":
         DatetimeChosen = "Weekly"
         break;
-      case "Day":
+      case "Daily":
         DatetimeChosen = "Daily"
         break;
-      case "Week":
+      case "Weekly":
         DatetimeChosen = "Weekly"
         break;
       case "Month":
@@ -735,7 +735,6 @@ function RenderDeviceType(){
     
     var setUrl = "https://main.d23gwgub2u9aya.amplifyapp.com/#Dashboard"+"+"+databaseChosen+"+"+dateTimeChosen;
     window.location.href=setUrl;
-    GetPage();
   }
 </script>
 <script>
@@ -786,11 +785,10 @@ function RenderDeviceType(){
               <div class="btn-toolbar mb-2 mb-md-0">
                 <button type="button" class="btn btn-sm btn-outline-secondary btn-light" style="margin-right:5px;">Export</button>
                 <select name="timescalePicker" id="timescale" onchange="DateTimeChange()" style="margin-right:5px;"  class="btn btn-sm btn-outline-secondary btn-light d-flex align-items-center gap-1">
-                  <option value="all">All</option>
-                  <option value="day">Day</option>
-                  <option value="week">Week</option>
-                  <option value="month">Month</option>
-                  <option value="year">Year</option>
+                  <option value="Daily">Day</option>
+                  <option value="Weekly">Weekly</option>
+                  <option value="Month">Month</option>
+                  <option value="Year">Year</option>
                 </select>
                 
                 <div class="btn-group me-2 align-right btn-toolbar mb-2 mb-md-0">
