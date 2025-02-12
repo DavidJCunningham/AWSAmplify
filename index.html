@@ -665,7 +665,7 @@ function RenderDeviceType(){
       var json = {"Database":Database,"Dashboard":Timescale};
       
       var query = encodeQuery(json);
-      givenUrl = url +"?"+ query;
+      givenUrl = url +"dashboard?"+ query;
       // add content type header to object
       const headers = {
           "Content-Type": "application/json"
