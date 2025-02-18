@@ -542,14 +542,13 @@ var testHistoryDates = []
 var testHistoryUnits = []
   function RenderTestHistory(){
     //get data from database
-    
     new Chart("TestHistoryChart", {
     type: "line",
     data: {
-      labels: testHistoryX,
+      labels: testHistoryDates,
       datasets: [{
         backgroundColor: 'rgba(154, 52, 235, 0.5)',
-        data: testHistoryY
+        data: testHistoryUnits
       }]
     },
     options: {
