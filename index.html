@@ -681,6 +681,7 @@ var testHistoryUnits = []
       .catch(error => console.log('Filter API Error', error));
   }  
   function GraphAPIParse(dataRaw){
+    console.log(dataRaw)
     dataFormat = dataRaw.replaceAll("[","").replaceAll("\"","").replaceAll("\'","").replaceAll("\"","")
     dataSplit = dataFormat.split("]")[0];
     dataSplitValues = dataSplit.split(",")
