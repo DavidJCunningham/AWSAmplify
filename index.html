@@ -546,10 +546,10 @@ var testHistoryUnits = []
     new Chart("TestHistoryChart", {
     type: "line",
     data: {
-      labels: testHistoryDates,
+      labels: testHistoryX,
       datasets: [{
         backgroundColor: 'rgba(154, 52, 235, 0.5)',
-        data: testHistoryUnits
+        data: testHistoryY
       }]
     },
     options: {
@@ -609,9 +609,9 @@ var testHistoryUnits = []
         dateTimeChosen=currentParams[2];
       }
       //parse testing or returns & datetime period chosen
-      var parsedData = GetGraphData(databaseChosen, dateTimeChosen);
+      GetGraphData(databaseChosen, dateTimeChosen);
       //else do nothing
-      RefreshGraphs(parsedData);
+      RefreshGraphs();
     }
   }
   function GetGraphData(DatabaseChosen,DatetimeChosen)
@@ -658,7 +658,7 @@ var testHistoryUnits = []
     //Call Graph API
     GraphDataAPI(DataBase,DatetimeChosen);
   }
-  function GraphDataAPI(Database, Timescale)
+  async function GraphDataAPI(Database, Timescale)
     {
       var url = "https://n6uac60or4.execute-api.eu-west-1.amazonaws.com/beta/";
       var json = {"Database":Database,"Dashboard":Timescale};
@@ -676,26 +676,30 @@ var testHistoryUnits = []
           redirect: 'follow',
       };
       // make API call with parameters and use promises to get response
-      fetch(givenUrl, requestOptions)
+      await fetch(givenUrl, requestOptions)
       .then(response => response.text())
       .then(result => GraphAPIParse(result))
       .catch(error => console.log('Filter API Error', error));
-  }
-  function GraphAPIParse(data){
-    console.log(data)
-    var dataBreakdown = data[0];
-    var dataIntParse = [];
-    for(let i = 0;i< dataBreakdown.length; i++){
-      dataIntParse[i] = parseInt(dataBreakdown[i]);
+  }  
+  function GraphAPIParse(dataRaw){
+    dataFormat = dataRaw.replaceAll("[","").replaceAll("\"","").replaceAll("\'","").replaceAll("\"","")
+    dataSplit = dataFormat.split("]")[0];
+    dataSplitValues = dataSplit.split(",")
+    var dataValuesParse = [];
+    for(let i = 0;i< dataSplitValues.length; i++){
+      dataValuesParse[i] = parseInt(dataSplitValues[i]);
     }
-    DeviceTypeValues = [dataIntParse[0],dataIntParse[1]];
+    DeviceTypeValues = [dataValuesParse[0],dataValuesParse[1]];
+    PassFailData = [dataValuesParse[2],dataValuesParse[3]];
+    var dataTimestampsPre = dataFormat.replaceAll(",","").split("]");
+    dataTimestamps = dataTimestampsPre.slice(1,(dataTimestampsPre.length-2))
 
-    PassFailData = [dataIntParse[2],dataIntParse[3]];
-    var dataTimestamps = data.slice(1);
     for(let i = 0;i< dataTimestamps.length; i++){
-      testHistoryDates[i] = dataTimestamps[i][0];
-      testHistoryUnits[i] = parseInt(dataTimestamps[i][1]);
+      var tempTimestamps = dataTimestamps[i].split(" ").slice(1)
+      testHistoryUnits[i] = tempTimestamps[0];
+      testHistoryDates[i] = parseInt(tempTimestamps[1]);
     }
+    
   }
   function DateTimeChange(){
     var text = timescale.options[timescale.selectedIndex].text;
@@ -765,6 +769,7 @@ var testHistoryUnits = []
 <script>
   function OnAppearing()
   {
+    //GraphAPIParseManual();
     GetPage();
     //FileUpdateCall();
     //TableHide("UnListTest")
