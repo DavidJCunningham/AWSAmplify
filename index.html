@@ -13,24 +13,6 @@
     <title>R&D - Returns Form</title>
     
   <script>
-    document.getElementById('fileInput').addEventListener('change', function(event) {
-      const file = event.target.files[0];
-      if (file) {
-        Papa.parse(file, {
-            worker: true,
-            step: function(results) {
-              CSVParse(results.data)
-            },
-            complete: function() {
-                window.alert('CSV file successfully processed');
-            },
-            error: function(error) {
-                window.alert('Error parsing CSV:', error);
-            }
-          }
-        );
-      }
-    });
     function openTab(evt, tabName,objs) {
       // Declare all variables
       var i, tabcontent, tablinks;
@@ -752,11 +734,32 @@ function RenderDeviceType(){
     var setUrl = "https://main.d23gwgub2u9aya.amplifyapp.com/#Dashboard"+"+"+databaseChosen+"+"+dateTimeChosen;
     window.location.href=setUrl;
   }
+  function FileUpdateCall(){
+    document.getElementById('fileInput').addEventListener('change', function(event) {
+      const file = event.target.files[0];
+      if (file) {
+        Papa.parse(file, {
+            worker: true,
+            step: function(results) {
+              CSVParse(results.data)
+            },
+            complete: function() {
+                window.alert('CSV file successfully processed');
+            },
+            error: function(error) {
+                window.alert('Error parsing CSV:', error);
+            }
+          }
+        );
+      }
+    });
+  }
 </script>
 <script>
   function OnAppearing()
   {
     GetPage();
+    FileUpdateCall();
     //TableHide("UnListTest")
   }
 </script>
