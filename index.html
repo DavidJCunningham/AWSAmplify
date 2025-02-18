@@ -11,59 +11,78 @@
 
 
     <title>R&D - Returns Form</title>
-    <script>
-      function openTab(evt, tabName,objs) {
-        // Declare all variables
-        var i, tabcontent, tablinks;
-        if(objs == "Click"){
-        // Get all elements with class="tabcontent" and hide them
-        tabcontent = document.getElementsByClassName("tabcontent");
-        for (i = 0; i < tabcontent.length; i++) {
-          tabcontent[i].style.display = "none";
-        }
-
-        // Get all elements with class="tablinks" and remove the class "active"
-        tablinks = document.getElementsByClassName("nav-link");
-        for (i = 0; i < tablinks.length; i++) {
-          tablinks[i].className = tablinks[i].className.replace(" active", "");
-        }
-
-        // Show the current tab, and add an "active" class to the button that opened the tab
-        document.getElementById(tabName).style.display = "block";
-        evt.currentTarget.className += " active";
-        window.history.pushState('', '', '/#'+tabName);
+    
+  <script>
+    document.getElementById('fileInput').addEventListener('change', function(event) {
+      const file = event.target.files[0];
+      if (file) {
+        Papa.parse(file, {
+            worker: true,
+            step: function(results) {
+              CSVParse(results.data)
+            },
+            complete: function() {
+                window.alert('CSV file successfully processed');
+            },
+            error: function(error) {
+                window.alert('Error parsing CSV:', error);
+            }
+          }
+        );
       }
-      if (objs == "Reload"){
+    });
+    function openTab(evt, tabName,objs) {
+      // Declare all variables
+      var i, tabcontent, tablinks;
+      if(objs == "Click"){
+      // Get all elements with class="tabcontent" and hide them
+      tabcontent = document.getElementsByClassName("tabcontent");
+      for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+      }
 
-        // Declare all variables
-        
-        // Get all elements with class="tabcontent" and hide them
-        tabcontent = document.getElementsByClassName("tabcontent");
-        for (i = 0; i < tabcontent.length; i++) {
-          tabcontent[i].style.display = "none";
-        }
+      // Get all elements with class="tablinks" and remove the class "active"
+      tablinks = document.getElementsByClassName("nav-link");
+      for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+      }
 
-        // Get all elements with class="tablinks" and remove the class "active"
-        tablinks = document.getElementsByClassName("nav-link");
-        for (i = 0; i < tablinks.length; i++) {
-          tablinks[i].className = tablinks[i].className.replace(" active", "");
-        }
+      // Show the current tab, and add an "active" class to the button that opened the tab
+      document.getElementById(tabName).style.display = "block";
+      evt.currentTarget.className += " active";
+      window.history.pushState('', '', '/#'+tabName);
+    }
+    if (objs == "Reload"){
 
-        //make the given tab active
-        switch(tabName){
-          case "Dashboard":
-            Dashboard.style.display = "block";
-            DashboardTitle.className += " active";
+      // Declare all variables
+      
+      // Get all elements with class="tabcontent" and hide them
+      tabcontent = document.getElementsByClassName("tabcontent");
+      for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+      }
 
-            break;
-          case "Testing":
-            Testing.style.display = "block";
-            TestingTitle.className += " active";
-            break;
-          case "Returns":
-            Returns.style.display = "block";
-            ReturnsTitle.className += " active";
-            break;
+      // Get all elements with class="tablinks" and remove the class "active"
+      tablinks = document.getElementsByClassName("nav-link");
+      for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+      }
+
+      //make the given tab active
+      switch(tabName){
+        case "Dashboard":
+          Dashboard.style.display = "block";
+          DashboardTitle.className += " active";
+
+          break;
+        case "Testing":
+          Testing.style.display = "block";
+          TestingTitle.className += " active";
+          break;
+        case "Returns":
+          Returns.style.display = "block";
+          ReturnsTitle.className += " active";
+          break;
         }
       }
     } 
@@ -657,7 +676,7 @@ function RenderDeviceType(){
     //Update URL with new values
     UpdateURL(DataBase,DatetimeChosen)
     //Call Graph API
-    GraphAPIParse(DataBase,DatetimeChosen);
+    GraphDataAPI(DataBase,DatetimeChosen);
   }
   function GraphDataAPI(Database, Timescale)
     {
@@ -1119,24 +1138,4 @@ function RenderDeviceType(){
     </div>
   </div>   
 </body>
-<script>
-  document.getElementById('fileInput').addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (file) {
-              Papa.parse(file, {
-                  worker: true,
-                  step: function(results) {
-                    CSVParse(results.data)
-                  },
-                  complete: function() {
-                      window.alert('CSV file successfully processed');
-                  },
-                  error: function(error) {
-                      window.alert('Error parsing CSV:', error);
-                  }
-                }
-              );
-            }
-        });
-</script>
 </html>
