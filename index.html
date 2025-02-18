@@ -494,18 +494,18 @@
   }
 </style>
 <script>
-  const yValues = [55, 33, 49, 24];
-  const barColors = ["red","green","blue","gray"];
+  const barColors = ["red","blue","green","gray"];
 </script>
 <script>
+var DeviceTypeValues = []
 function RenderDeviceType(){
   new Chart("DeviceTypeChart", {
   type: "doughnut",
   data: {
-    labels: ["Alarm", "Smart V1", "Smart V2", "Ultrasonic Sensor"],
+    labels: ["Alarm", "Smart"],
     datasets: [{
     backgroundColor: barColors,
-    data: yValues
+    data: DeviceTypeValues
     }]
   },
   options: {
@@ -516,9 +516,8 @@ function RenderDeviceType(){
   }
   });
 }
+var PassFailData = []
   function RenderPassFail(){
-    //get data from database
-    var PassFailData = [43,12] 
     new Chart("PassFailChart", {
     type: "bar",
     data: {
@@ -539,11 +538,10 @@ function RenderDeviceType(){
     }
   });
 }
+var testHistoryDates = []
+var testHistoryUnits = []
   function RenderTestHistory(){
     //get data from database
-    var testHistoryX = ["2016-12-25","2016-12-26","2016-12-27","2016-12-28"]
-    var testHistoryY = [12,15,8,26]
-    var TestHistoryData = [{x:"2024-12-25",y:12},{x:"2024-12-26",y:15},{x:"2024-12-27",y:8},{x:"2024-12-28",y:26}]
     
     new Chart("TestHistoryChart", {
     type: "line",
@@ -611,9 +609,9 @@ function RenderDeviceType(){
         dateTimeChosen=currentParams[2];
       }
       //parse testing or returns & datetime period chosen
-      GetGraphData(databaseChosen, dateTimeChosen);
+      var parsedData = GetGraphData(databaseChosen, dateTimeChosen);
       //else do nothing
-      RefreshGraphs();
+      RefreshGraphs(parsedData);
     }
   }
   function GetGraphData(DatabaseChosen,DatetimeChosen)
@@ -684,11 +682,20 @@ function RenderDeviceType(){
       .catch(error => console.log('Filter API Error', error));
   }
   function GraphAPIParse(data){
-    console.log(data);
-    //Parse amount of tests for Graph 1
-    //Parse Device Type data for Graph 2
+    console.log(data)
+    var dataBreakdown = data[0];
+    var dataIntParse = [];
+    for(let i = 0;i< dataBreakdown.length; i++){
+      dataIntParse[i] = parseInt(dataBreakdown[i]);
+    }
+    DeviceTypeValues = [dataIntParse[0],dataIntParse[1]];
 
-    //Parse Pass/Fail data for Graph 3
+    PassFailData = [dataIntParse[2],dataIntParse[3]];
+    var dataTimestamps = data.slice(1);
+    for(let i = 0;i< dataTimestamps.length; i++){
+      testHistoryUnits[i] = dataTimestamps[i][0];
+      testHistoryDates[i] = parseInt(dataTimestamps[i][1]);
+    }
   }
   function DateTimeChange(){
     var text = timescale.options[timescale.selectedIndex].text;
@@ -759,7 +766,7 @@ function RenderDeviceType(){
   function OnAppearing()
   {
     GetPage();
-    FileUpdateCall();
+    //FileUpdateCall();
     //TableHide("UnListTest")
   }
 </script>
