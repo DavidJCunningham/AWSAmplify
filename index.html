@@ -578,7 +578,7 @@ var testHistoryUnits = []
     RenderPassFail();
     RenderTestHistory();
   }
-  function GetPage()
+  async function GetPage()
   {
     //if page is dashboard or default
     var currentUrl = (window.location.href);
@@ -597,7 +597,7 @@ var testHistoryUnits = []
         currentPage = "Dashboard"
         break;
     }
-    openTab(null,currentPage,"Reload");
+    await openTab(null,currentPage,"Reload");
     if (currentPage == "Dashboard")
     {
       var databaseChosen = "";
@@ -608,19 +608,16 @@ var testHistoryUnits = []
         dateTimeChosen=currentParams[2];
       }
       //parse testing or returns & datetime period chosen
-      GetGraphData(databaseChosen, dateTimeChosen);
+      await GetGraphData(databaseChosen, dateTimeChosen);
       //else do nothing
       RefreshGraphs();
     }
   }
-  function GetGraphData(DatabaseChosen,DatetimeChosen)
+  async function GetGraphData(DatabaseChosen,DatetimeChosen)
   {
     //Get selected database
     var DataBase = "";
     switch(DatabaseChosen) {
-      case "":
-        DataBase = "RigData"
-        break;
       case "Testing":
         DataBase = "RigData"
         break;
@@ -653,9 +650,9 @@ var testHistoryUnits = []
         break;
     }
     //Update URL with new values
-    UpdateURL(DataBase,DatetimeChosen)
+    await UpdateURL(DatabaseChosen,DatetimeChosen)
     //Call Graph API
-    GraphDataAPI(DataBase,DatetimeChosen);
+    await GraphDataAPI(DataBase,DatetimeChosen);
   }
   async function GraphDataAPI(Database, Timescale)
     {
@@ -772,7 +769,6 @@ var testHistoryUnits = []
 <script>
   function OnAppearing()
   {
-    //GraphAPIParseManual();
     GetPage();
     //FileUpdateCall();
     //TableHide("UnListTest")
