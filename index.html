@@ -627,14 +627,12 @@ var testHistoryUnits = []
         DataBase = "ReturnsData"
         break;
       default:
+        DatabaseChosen = "Testing";
         DataBase = "RigData";
         break;
     }
 
     switch(DatetimeChosen) {
-      case "":
-        DatetimeChosen = "Weekly"
-        break;
       case "Daily":
         DatetimeChosen = "Daily"
         break;
