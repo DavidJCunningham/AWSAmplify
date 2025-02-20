@@ -615,8 +615,6 @@ var testHistoryUnits = []
   }
   async function GetGraphData(DatabaseChosen,DatetimeChosen)
   {
-    console.log("DatabaseChosen Value: "+DatabaseChosen)
-    console.log("DatetimeChosen Value: "+DatetimeChosen)
     //Get selected database
     var DataBase = "";
     switch(DatabaseChosen) {
@@ -639,18 +637,16 @@ var testHistoryUnits = []
       case "Weekly":
         DatetimeChosen = "Weekly"
         break;
-      case "Month":
+      case "Monthly":
         DatetimeChosen = "Monthly"
         break;
-      case "Year":
+      case "Yearly":
         DatetimeChosen = "Yearly"
         break;
       default:
         DatetimeChosen = "Weekly";
         break;
     }
-    console.log("DatabaseChosen Value: "+DatabaseChosen)
-    console.log("DatetimeChosen Value: "+DatetimeChosen)
     //Update URL with new values
     await UpdateURL(DatabaseChosen,DatetimeChosen)
     //Call Graph API
