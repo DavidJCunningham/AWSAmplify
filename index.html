@@ -702,7 +702,7 @@ var testHistoryUnits = []
       testHistoryUnits[i] = parseInt(tempTimestamps[1]);
     }
     
-    if(testHistoryDates.length == 0){window.alert("No Data for selected filter"); TableHide("ChartDiv"); ChartError.style.display=""; return;}
+    if(testHistoryDates.length == 0){window.alert("No Data for selected filter"); ChartDiv.style.display='none'; ChartError.style.display='block'; return;}
     console.log(DeviceTypeValues)
     console.log(PassFailData)
     console.log(testHistoryDates)
