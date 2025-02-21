@@ -684,7 +684,6 @@ var testHistoryUnits = []
   }  
   function GraphAPIParse(dataRaw){
     console.log(dataRaw)
-    if(dataRaw== {"message": "Internal server error"}){window.alert("No Data for selected filter"); return;}
     dataFormat = dataRaw.replaceAll("[","").replaceAll("\"","").replaceAll("\'","").replaceAll("\"","")
     dataSplit = dataFormat.split("]")[0];
     dataSplitValues = dataSplit.split(",")
@@ -702,6 +701,8 @@ var testHistoryUnits = []
       testHistoryDates[i] = tempTimestamps[0];
       testHistoryUnits[i] = parseInt(tempTimestamps[1]);
     }
+    
+    if(testHistoryDates.length == 0){window.alert("No Data for selected filter"); return;}
     console.log(DeviceTypeValues)
     console.log(PassFailData)
     console.log(testHistoryDates)
