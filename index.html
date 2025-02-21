@@ -684,6 +684,7 @@ var testHistoryUnits = []
   }  
   function GraphAPIParse(dataRaw){
     console.log(dataRaw)
+    if(dataRaw['message']=="Internal server error"){window.alert("No Data for selected filter"); return;}
     dataFormat = dataRaw.replaceAll("[","").replaceAll("\"","").replaceAll("\'","").replaceAll("\"","")
     dataSplit = dataFormat.split("]")[0];
     dataSplitValues = dataSplit.split(",")
