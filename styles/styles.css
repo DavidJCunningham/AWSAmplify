@@ -23,3 +23,9 @@ cursor: pointer;
 a:hover {
 font-size: 101%;
 }
+canvas{
+    max-width:550px;
+    display:inline-block;
+    margin-top:10px;
+    margin-bottom:10px;
+}
