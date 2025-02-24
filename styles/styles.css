@@ -23,7 +23,7 @@ cursor: pointer;
 a:hover {
 font-size: 101%;
 }
-canvas{
+GraphStyle{
     max-width:550px;
     display:inline-block;
     margin-top:10px;
