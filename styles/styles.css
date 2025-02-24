@@ -1,0 +1,25 @@
+textarea 
+{
+margin-bottom: 10px;
+}
+/* Style the tab content */
+.tabcontent {
+display: none;
+padding: 6px 12px;
+border-top: none;
+}
+.tabcontent {
+animation: fadeEffect 1s; /* Fading effect takes 1 second */
+}
+
+/* Go from zero to full opacity */
+@keyframes fadeEffect {
+from {opacity: 0;}
+to {opacity: 1;}
+}
+.clickable {
+cursor: pointer;
+}
+a:hover {
+font-size: 101%;
+}
