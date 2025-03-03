@@ -466,6 +466,7 @@ function RenderDeviceType(){
       }
   }
   });
+  }
 }
 var PassFailData = []
   function RenderPassFail(){
@@ -729,5 +730,4 @@ function OnAppearing()
   GetPage();
   //FileUpdateCall();
   //TableHide("UnListTest")
-}
 }
