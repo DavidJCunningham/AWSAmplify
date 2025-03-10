@@ -742,6 +742,20 @@ var testHistoryUnits = []
       }
     });
   }
+  function ExportPressed(){
+    downloadBlob(csv, 'dataExport.csv', 'text/csv;charset=utf-8;')
+  }
+  function downloadBlob(content, filename, contentType) {
+    // Create a blob
+    var blob = new Blob([content], { type: contentType });
+    var url = URL.createObjectURL(blob);
+
+    //Create a link to download it
+    var pom = document.createElement('a');
+    pom.href = url;
+    pom.setAttribute('download', filename);
+    pom.click();
+  }
   
   function OnAppearing()
   {
@@ -788,7 +802,7 @@ var testHistoryUnits = []
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
               <h1 class="h2">Dashboard</h1>
               <div class="btn-toolbar mb-2 mb-md-0">
-                <button type="button" class="btn btn-sm btn-outline-secondary btn-light" style="margin-right:5px;">Export</button>
+                <button type="button" class="btn btn-sm btn-outline-secondary btn-light" onclick="ExportPressed()" style="margin-right:5px;">Export</button>
                 <select name="timescalePicker" id="timescale" onchange="DateTimeChange()" style="margin-right:5px;"  class="btn btn-sm btn-outline-secondary btn-light d-flex align-items-center gap-1">
                   <option value="Daily">Daily</option>
                   <option value="Weekly">Weekly</option>
