@@ -746,7 +746,7 @@ var testHistoryUnits = []
     var csvReturn = []
     csvReturn[0] = ["Test Date","Test Amount\n"]
     for(let i = 0; i < testHistoryDates.length; i++){
-      csvReturn[i+1] = [testHistoryDates[i],testHistoryUnits[i]]
+      csvReturn[i+1] = [testHistoryDates[i],testHistoryUnits[i],"\n"]
     }
     return csvReturn;
   }
@@ -755,7 +755,7 @@ var testHistoryUnits = []
   }
   function downloadBlob(content, filename, contentType) {
     // Create a blob
-    var blob = new Blob([content], { type: contentType });
+    var blob = new Blob(content, { type: contentType });
     var url = URL.createObjectURL(blob);
 
     //Create a link to download it
