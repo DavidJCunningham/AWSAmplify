@@ -743,7 +743,7 @@ var testHistoryUnits = []
     });
   }
   function ExportPressed(){
-    var csv = '[PassFailData,DeviceTypeValues,[testHistoryDates,testHistoryUnits]]'
+    var csv = [testHistoryDates,testHistoryUnits]
     downloadBlob(csv, 'dataExport.csv', 'text/csv;charset=utf-8;')
   }
   function downloadBlob(content, filename, contentType) {
