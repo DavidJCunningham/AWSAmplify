@@ -744,7 +744,7 @@ var testHistoryUnits = []
   }
   function formatCSV(){
     var csvReturn = []
-    csvReturn[0] = ["Test Date","Test Amount"]
+    csvReturn[0] = ["Test Date","Test Amount\n"]
     for(let i = 0; i < testHistoryDates.length; i++){
       csvReturn[i+1] = [testHistoryDates[i],testHistoryUnits[i]+"\n"]
     }
