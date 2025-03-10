@@ -744,9 +744,13 @@ var testHistoryUnits = []
   }
   function formatCSV(){
     var csvReturn = []
-    csvReturn[0] = ["Test Date","Test Amount\n"]
+    csvReturn[0] = ["Alarm","Smart\n"];
+    csvReturn[1] = DeviceTypeValues+"\n";
+    csvReturn[2] = ["Pass","Fail\n"];
+    csvReturn[3] = PassFailData+"\n";
+    csvReturn[4] = ["Test Date","Test Amount\n"];
     for(let i = 0; i < testHistoryDates.length; i++){
-      csvReturn[i+1] = [testHistoryDates[i],testHistoryUnits[i],"\n"]
+      csvReturn[i+5] = [testHistoryDates[i],testHistoryUnits[i],"\n"]
     }
     return csvReturn;
   }
@@ -757,7 +761,6 @@ var testHistoryUnits = []
     // Create a blob
     var blob = new Blob(content, { type: contentType });
     var url = URL.createObjectURL(blob);
-
     //Create a link to download it
     var pom = document.createElement('a');
     pom.href = url;
