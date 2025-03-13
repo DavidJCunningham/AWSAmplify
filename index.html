@@ -223,14 +223,14 @@
       formatObject[17] = object.SerialNumber;
       formatObject[18] = object.Status;
       formatObject[19] = object.Tags;
+      console.log(new Date().toLocaleDateString());
       formatObject[20] = new Date().toLocaleString();
       formatObject[21] =object.VisualComments;
       formatObject[22] = object.VisualInspection;
       console.log(formatObject);
       return formatObject;
-      
     }
-    var TestAPIPost = (object)=>{  
+    var TestAPIPost = (object)=>{
       // instantiate a headers object
       var myHeaders = new Headers();
       // add content type header to object
