@@ -222,7 +222,7 @@
       formatObject[16] = object.SensorTest;
       formatObject[17] = object.SerialNumber;
       formatObject[18] = object.Status;
-      formatObject[19] = object.Tags;
+      formatObject[19] = "";
       console.log(new Date().toLocaleDateString());
       formatObject[20] = new Date().toLocaleString();
       formatObject[21] =object.VisualComments;
@@ -770,7 +770,9 @@ var testHistoryUnits = []
   
   function OnAppearing()
   {
-    GetPage();
+    //For Local Comment Out
+    //GetPage();
+
     //FileUpdateCall();
     //TableHide("UnListTest")
   }
@@ -877,9 +879,10 @@ var testHistoryUnits = []
           <h2>Unit Details</h2>
           <form id="ReturnsForm">
             <div class="row">
-              <div class="col-md-3"> 
-                <label for="SerialNumber">Serial Number:</label>
-                <input type="text" class="form-control" id="SerialNumber">
+              <div class="col-md-4">
+                <label for="DateReturned">Date Returned:</label>
+                <input type="datetime-local" class="form-control" id="DateReturned">
+
                 <label for="History">Device History:</label>
                 <select class="form-control" id="History">
                   <option value="NONE"></option>
@@ -888,12 +891,102 @@ var testHistoryUnits = []
                   <option value="WORKSHOP">Workshop</option>
                   <option value="Other">Other (See Comments)</option>
                 </select>
-                <label for="IMEI">IMEI:</label>
-                <input type="text" class="form-control" id="IMEI">
+                
+                <label for="Customer">Customer:</label>
+                <input type="text" class="form-control" id="Customer">
+
+                <label for="ReturnReason">Reason For Return:</label>
+                <select class="form-control" id="ReturnReason">
+                  <option value="NONE"></option>
+                  <option value="No Reason Given">No Reason Given</option>
+                  <option value="Connection Issues">Connection Issues</option>
+                  <option value="Damaged">Damaged</option>
+                  <option value="Distance Measurement Issues">Distance Measurement Issues</option>
+                  <option value="Low Voltage">Low Voltage</option>
+                  <option value="Swapped">Swapped</option>
+                  <option value="Wire Broken">Wire Broken</option>
+                  <option value="Won't Wake Up">Won't Wake Up</option>
+                </select>
+
+                <label for="Product">Product:</label>
+                <select class="form-control" id="Product" onchange=ProductSelect(Product)>
+                  <option value="NONE"></option>
+                  <option value="LIDoTT ALARM">Alarm</option>
+                  <option value="LIDoTT SMART V1">Smart V1</option>
+                  <option value="LIDoTT SMART V2">Smart V2</option>
+                </select>
+
+                <label for="ProductVariant">Product Variant:</label>
+                <select class="form-control" id="ProductVariant" onchange=ProductSelect(Product)>
+                  <option value="NONE"></option>
+                  <option value="A">A Variant</option>
+                  <option value="B">B Variant</option>
+                  <option value="C">C Variant</option>
+                  <option value="D">D Variant</option>
+                </select>
+
+                <label for="ProductCode">Product Code:</label>
+                <input type="text" class="form-control" id="ProductCode">
+                
+                <label for="SerialNumber">Serial Number:</label>
+                <input type="text" class="form-control" id="SerialNumber">
+
                 <label for="BatterySerial">Battery Serial:</label>
                 <input type="text" class="form-control" id="BatterySerial">
+
+                <label for="IMEI">IMEI:</label>
+                <input type="text" class="form-control" id="IMEI">
+              </div>
+              <div class="col-md-1"></div>
+              <div class="col-md-4">
+                <label for="VisualInspection">Visual Inspection:</label>
+                <select class="form-control" id="VisualInspection">
+                  <option value="NONE"></option>
+                  <option value="PASS">Pass</option>
+                  <option value="FAIL">Fail</option>
+                </select>
+
+                <label for="VisualComments">Visual Comments:</label>
+                <input type="text" class="form-control" id="VisualComments">
+                
                 <label for="BatteryVoltage">Battery Voltage:</label>
                 <input type="text" class="form-control" id="BatteryVoltage">
+
+                <label for="CommsTest">Comms Test:</label>
+                <select class="form-control" id="CommsTest">
+                  <option value="NONE"></option>
+                  <option value="PASS">Pass</option>
+                  <option value="FAIL">Fail</option>
+                </select>
+                
+                <label for="CommsError">Comms Error:</label>
+                <input type="text" class="form-control" id="CommsError">
+                
+                <label for="SensorTest">Sensor Test:</label>
+                <select class="form-control" id="SensorTest">
+                  <option value="NONE"></option>
+                  <option value="PASS">Pass</option>
+                  <option value="FAIL">Fail</option>
+                </select>
+                
+                <label for="SensorError">Sensor Error:</label>
+                <input type="text" class="form-control" id="SensorError">
+                
+                <label for="FixApplied">Fix Applied:</label>
+                <select class="form-control" id="FixApplied">
+                  <option value="NONE"></option>
+                  <option value="NFF">No Fault Found</option>
+                  <option value="CONFIG UPDATE">Config Update</option>
+                  <option value="FIRMWARE UPDATE">Firmware Update</option>
+                  <option value="MODEM UPDATE">Modem Update</option>
+                  <option value="MODEM FIX">Modem Fix</option>
+                  <option value="REPLACED ANTENNA">Replaced Antenna</option>
+                  <option value="RESET PG">Reset PG</option>
+                  <option value="TELIT">Telit</option>
+                  <option value="TIGHTENED ANTENNA">Tightened Antenna</option>
+                  <option value="UNBOOTSTRAPPED">Un/Re-Bootstrapped</option>
+                </select>
+                
                 <label for="FaultCategory">Fault Category:</label>
                 <select class="form-control" id="FaultCategory">
                   <option value="NONE"></option>
@@ -911,83 +1004,7 @@ var testHistoryUnits = []
                   <option value="WEAR AND TEAR">Wear and Tear</option>
                   <option value="WONT WAKE">Won't Wake</option>
                 </select>
-                <label for="ReturnReason">Reason For Return:</label>
-                <select class="form-control" id="ReturnReason">
-                  <option value="NONE"></option>
-                  <option value="No Reason Given">No Reason Given</option>
-                  <option value="Connection Issues">Connection Issues</option>
-                  <option value="Damaged">Damaged</option>
-                  <option value="Distance Measurement Issues">Distance Measurement Issues</option>
-                  <option value="Low Voltage">Low Voltage</option>
-                  <option value="Swapped">Swapped</option>
-                  <option value="Wire Broken">Wire Broken</option>
-                  <option value="Won't Wake Up">Won't Wake Up</option>
-                </select>
-              </div>
-              <div class="col-md-3">
-                <label for="Product">Product:</label>
-                <select class="form-control" id="Product" onchange=ProductSelect(Product)>
-                  <option value="NONE"></option>
-                  <option value="LIDoTT ALARM">Alarm</option>
-                  <option value="LIDoTT SMART V1">Smart V1</option>
-                  <option value="LIDoTT SMART V2">Smart V2</option>
-                </select>
-                <label for="ProductVariant">Product:</label>
-                <select class="form-control" id="ProductVariant" onchange=ProductSelect(Product)>
-                  <option value="NONE"></option>
-                  <option value="A">A Variant</option>
-                  <option value="B">B Variant</option>
-                  <option value="C">C Variant</option>
-                  <option value="D">D Variant</option>
-                </select>
-                <label for="ProductCode">Product Code:</label>
-                <input type="text" class="form-control" id="ProductCode">
-                <label for="Tags">Tag(s):</label>
-                <input type="text" class="form-control" id="Tags">
-                <label for="DateReturned">Date Returned:</label>
-                <input type="datetime-local" class="form-control" id="DateReturned">
-                <label for="Customer">Customer:</label>
-                <input type="text" class="form-control" id="Customer">
-                <label for="FixApplied">Fix Applied:</label>
-                <select class="form-control" id="FixApplied">
-                  <option value="NONE"></option>
-                  <option value="NFF">No Fault Found</option>
-                  <option value="CONFIG UPDATE">Config Update</option>
-                  <option value="FIRMWARE UPDATE">Firmware Update</option>
-                  <option value="MODEM UPDATE">Modem Update</option>
-                  <option value="MODEM FIX">Modem Fix</option>
-                  <option value="REPLACED ANTENNA">Replaced Antenna</option>
-                  <option value="RESET PG">Reset PG</option>
-                  <option value="TELIT">Telit</option>
-                  <option value="TIGHTENED ANTENNA">Tightened Antenna</option>
-                  <option value="UNBOOTSTRAPPED">Un/Re-Bootstrapped</option>
-                </select>
-              </div>
-              <div class="col-md-3">  
-                <label for="VisualInspection">Visual Inspection:</label>
-                <select class="form-control" id="VisualInspection">
-                  <option value="NONE"></option>
-                  <option value="PASS">Pass</option>
-                  <option value="FAIL">Fail</option>
-                </select>
-                <label for="VisualComments">Visual Comments:</label>
-                <input type="text" class="form-control" id="VisualComments">
-                <label for="CommsTest">Comms Test:</label>
-                <select class="form-control" id="CommsTest">
-                  <option value="NONE"></option>
-                  <option value="PASS">Pass</option>
-                  <option value="FAIL">Fail</option>
-                </select>
-                <label for="CommsError">Comms Error:</label>
-                <input type="text" class="form-control" id="CommsError">
-                <label for="SensorTest">Sensor Test:</label>
-                <select class="form-control" id="SensorTest">
-                  <option value="NONE"></option>
-                  <option value="PASS">Pass</option>
-                  <option value="FAIL">Fail</option>
-                </select>
-                <label for="SensorError">Sensor Error:</label>
-                <input type="text" class="form-control" id="SensorError">
+                
                 <label class="label" for="Status">Final Status:</label>
                 <select class="form-control" id="Status">
                   <option value="NONE"></option>
@@ -998,8 +1015,8 @@ var testHistoryUnits = []
             </div>
             <label for="Comments" class="form-label">Comments</label>
             <textarea class="form-control col-md-9" id="Comments" rows="4"></textarea>
-            <button id="submitReturnsUnitDetails" type="button" class="btn btn-primary form-control col-md-6" onclick="ReturnsAPIFormat(ReturnsForm); this.blur();">Submit</button>
-            <button id="clearReturnsForm" type="button" class="btn btn-primary form-control col-md-3" onclick="ReturnsForm.reset(); this.blur();">Clear Form</button>
+            <button id="submitReturnsUnitDetails" type="button" class="btn btn-primary form-control col-md-5" onclick="ReturnsAPIFormat(ReturnsForm); this.blur();">Submit</button>
+            <button id="clearReturnsForm" type="button" class="btn btn-primary form-control col-md-4" onclick="ReturnsForm.reset(); this.blur();">Clear Form</button>
           </form>
           <h2>Get Unit Details</h2>
           <div class="row">
