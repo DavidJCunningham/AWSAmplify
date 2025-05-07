@@ -459,6 +459,10 @@
           ProductCode.value = "Invalid Product";
       }
     }
+    if(ProductSelect.value == "RAIN GAUGE")
+    {
+      ProductCode.value = "P156-1"
+    }
     if(ProductSelect.value == "NONE"){
       document.getElementById("ProductCode").value = "Invalid Product";
     }
@@ -914,6 +918,7 @@ var testHistoryUnits = []
                   <option value="LIDoTT ALARM">Alarm</option>
                   <option value="LIDoTT SMART V1">Smart V1</option>
                   <option value="LIDoTT SMART V2">Smart V2</option>
+                  <option value="RAIN GAUGE">Rain Gauge</option>
                 </select>
 
                 <label for="ProductVariant">Product Variant:</label>
