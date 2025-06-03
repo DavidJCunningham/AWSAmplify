@@ -85,7 +85,7 @@
           redirect: 'follow'
       };
       // make API call with parameters and use promises to get response
-      fetch("https://n6uac60or4.execute-api.eu-west-1.amazonaws.com/beta/", requestOptions)
+      fetch("https://rk13pug9oe.execute-api.eu-west-1.amazonaws.com/Production/", requestOptions)
       .then(response => response.text())
       .then(result => alert(JSON.parse(result).body))
       .catch(error => console.log('API Call Error', error));
@@ -107,7 +107,7 @@
           redirect: 'follow'
       };
       // make API call with parameters and use promises to get response
-      fetch("https://n6uac60or4.execute-api.eu-west-1.amazonaws.com/beta/", requestOptions)
+      fetch("https://rk13pug9oe.execute-api.eu-west-1.amazonaws.com/Production/", requestOptions)
       .then(response => response.text())
       .then(result => alert(JSON.parse(result).body))
       .catch(error => window.alert('General API Error', error));
@@ -244,7 +244,7 @@
           body: obj,
           redirect: 'follow'
       };
-      var url = "https://n6uac60or4.execute-api.eu-west-1.amazonaws.com/beta/testing"
+      var url = "https://rk13pug9oe.execute-api.eu-west-1.amazonaws.com/Production/testing"
       // make API call with parameters and use promises to get response
       fetch(url, requestOptions)
       .then(response => response.text())
@@ -273,7 +273,7 @@
           return;
       }
       x = Filter;
-      var url = "https://n6uac60or4.execute-api.eu-west-1.amazonaws.com/beta/"+Database
+      var url = "https://rk13pug9oe.execute-api.eu-west-1.amazonaws.com/Production/"+Database
       var DatabasePointer = "";
       if(Database == "returns"){DatabasePointer = "ReturnsData";}
       if(Database == "testing"){DatabasePointer = "RigData";}
@@ -369,7 +369,7 @@
           return query.slice(0, -1)
       }
   function testAPI(){
-          var url = "https://n6uac60or4.execute-api.eu-west-1.amazonaws.com/beta/"
+          var url = "https://rk13pug9oe.execute-api.eu-west-1.amazonaws.com/Production/"
           //var query = encodeQuery();
           
           // add content type header to object
@@ -382,7 +382,7 @@
               headers: headers,
               redirect: 'follow',
           };
-          givenUrl = "https://n6uac60or4.execute-api.eu-west-1.amazonaws.com/beta/query1"
+          givenUrl = "https://rk13pug9oe.execute-api.eu-west-1.amazonaws.com/Production/query1"
           console.log(requestOptions,givenUrl);
           // make API call with parameters and use promises to get response
           fetch(givenUrl, requestOptions)
@@ -639,7 +639,7 @@ var testHistoryUnits = []
   }
   async function GraphDataAPI(Database, Timescale)
     {
-      var url = "https://n6uac60or4.execute-api.eu-west-1.amazonaws.com/beta/";
+      var url = "https://rk13pug9oe.execute-api.eu-west-1.amazonaws.com/Production/";
       var json = {"Database":Database,"Dashboard":Timescale};
       
       var query = encodeQuery(json);
